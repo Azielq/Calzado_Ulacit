@@ -10,17 +10,19 @@ using System.Windows.Forms;
 
 namespace Calzado_Ulacit
 {
-    public partial class Form2 : Form
+    public partial class UC_Clients : UserControl
     {
-        public Form2()
+        public UC_Clients()
         {
             InitializeComponent();
-            UserControl1 uc = new UserControl1();
-            uc.Dock = DockStyle.Fill;
-            panel1.Controls.Add(uc);
         }
 
-        private void Form2_Load(object sender, EventArgs e)
+        private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void UC_Clients_Load(object sender, EventArgs e)
         {
 
         }

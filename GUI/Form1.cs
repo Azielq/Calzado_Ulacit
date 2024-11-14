@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Calzado_Ulacit.GUI.User_Controls;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -59,6 +60,60 @@ namespace Calzado_Ulacit
         private void label3_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            UC_Clients uC_Clients = new UC_Clients();
+            LoadUserControl(uC_Clients );
+            button1.BackColor = ColorTranslator.FromHtml("#513d95");
+            button2.BackColor = ColorTranslator.FromHtml("#7148b5");
+            button3.BackColor = ColorTranslator.FromHtml("#7148b5");
+            button4.BackColor = ColorTranslator.FromHtml("#7148b5");
+            button5.BackColor = ColorTranslator.FromHtml("#7148b5");
+        }
+
+        private void button1_MouseClick(object sender, MouseEventArgs e)
+        {
+            
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            UC_Stock ucS = new UC_Stock();
+            LoadUserControl(ucS);
+            button1.BackColor = ColorTranslator.FromHtml("#7148b5");
+            button2.BackColor = ColorTranslator.FromHtml("#513d95");
+            button3.BackColor = ColorTranslator.FromHtml("#7148b5");
+            button4.BackColor = ColorTranslator.FromHtml("#7148b5");
+            button5.BackColor = ColorTranslator.FromHtml("#7148b5");
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            UC_Sell ucSll = new UC_Sell();
+            LoadUserControl(ucSll);
+            button1.BackColor = ColorTranslator.FromHtml("#7148b5");
+            button2.BackColor = ColorTranslator.FromHtml("#7148b5");
+            button3.BackColor = ColorTranslator.FromHtml("#513d95");
+            button4.BackColor = ColorTranslator.FromHtml("#7148b5");
+            button5.BackColor = ColorTranslator.FromHtml("#7148b5");
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            UC_CashOut ucCO = new UC_CashOut();
+            LoadUserControl(ucCO);
+            button1.BackColor = ColorTranslator.FromHtml("#7148b5");
+            button2.BackColor = ColorTranslator.FromHtml("#7148b5");
+            button3.BackColor = ColorTranslator.FromHtml("#7148b5");
+            button4.BackColor = ColorTranslator.FromHtml("#513d95");
+            button5.BackColor = ColorTranslator.FromHtml("#7148b5");
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

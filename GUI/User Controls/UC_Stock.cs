@@ -8,13 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Calzado_Ulacit
+namespace Calzado_Ulacit.GUI.User_Controls
 {
-    public partial class UC_Clients : UserControl
+    public partial class UC_Stock : UserControl
     {
-        public UC_Clients()
+        public UC_Stock()
         {
             InitializeComponent();
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

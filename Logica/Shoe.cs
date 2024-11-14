@@ -10,7 +10,7 @@ namespace Calzado_Ulacit.Logica
     {
         private int shoeId;
         private string shoeName;
-        private string shoeolor;
+        private string shoeColor;
         private int shoeSize;
         private string type;
         private float price;
@@ -19,7 +19,7 @@ namespace Calzado_Ulacit.Logica
         {
             this.shoeId = shoeId;
             this.shoeName = shoeName;
-            this.shoeolor = shoeolor;
+            this.shoeColor = shoeolor;
             this.shoeSize = shoeSize;
             this.type = type;
             this.price = price;
@@ -31,7 +31,7 @@ namespace Calzado_Ulacit.Logica
 
         public int ShoeId { get => shoeId; set => shoeId = value; }
         public string ShoeName { get => shoeName; set => shoeName = value; }
-        public string Shoeolor { get => shoeolor; set => shoeolor = value; }
+        public string ShoeColor { get => shoeColor; set => shoeColor = value; }
         public int ShoeSize { get => shoeSize; set => shoeSize = value; }
         public string Type { get => type; set => type = value; }
         public float Price { get => price; set => price = value; }
