@@ -18,6 +18,7 @@ namespace Calzado_Ulacit.GUI.User_Controls
         {
             InitializeComponent();
             LoadDataGrid();
+            CalculateAndDisplaySummary();
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -42,6 +43,9 @@ namespace Calzado_Ulacit.GUI.User_Controls
         private void UC_Stock_Load(object sender, EventArgs e)
         {
             LoadDataGrid();
+            CalculateAndDisplaySummary();
+            dataGridView1.ClearSelection();
+            dataGridView1.CurrentCell = null;
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
@@ -289,6 +293,7 @@ namespace Calzado_Ulacit.GUI.User_Controls
             }
 
             LoadDataGrid();
+            CalculateAndDisplaySummary();
             clear();
         }
 
@@ -422,6 +427,81 @@ namespace Calzado_Ulacit.GUI.User_Controls
             dataGridView1.CurrentCell = null;
 
             LoadDataGrid();
+            CalculateAndDisplaySummary();
+
+        }
+
+        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Verifica que la fila seleccionada sea válida
+            if (e.RowIndex >= 0)
+            {
+                // Obtiene la fila en la que se hizo doble clic
+                DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+
+                // Asigna los valores de la fila a los TextBox y ComboBox
+                textBox2.Text = row.Cells["shoeNameDataGridViewTextBoxColumn"].Value?.ToString() ?? "";
+                textBox1.Text = row.Cells["shoeColorDataGridViewTextBoxColumn"].Value?.ToString() ?? "";
+                comboBox1.SelectedItem = row.Cells["shoeSize"].Value?.ToString() ?? ""; // Asignar tamaño de zapato al ComboBox
+                textBox4.Text = row.Cells["typeDataGridViewTextBoxColumn"].Value?.ToString() ?? "";
+                textBox3.Text = row.Cells["priceDataGridViewTextBoxColumn"].Value?.ToString() ?? "";
+            }
+
+        }
+
+        private void UC_Stock_Click(object sender, EventArgs e)
+        {
+            dataGridView1.ClearSelection();
+        }
+
+        private void CalculateAndDisplaySummary()
+        {
+            Dictionary<string, int> typeCounts = new Dictionary<string, int>();
+            float totalMoney = 0;
+
+            // Recorre dataGridView1 para calcular totales
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                float price = Convert.ToSingle(row.Cells["priceDataGridViewTextBoxColumn"].Value ?? 0); // columna de precio
+                string type = row.Cells["typeDataGridViewTextBoxColumn"].Value?.ToString() ?? ""; // columna de tipo
+
+
+                // Acumulamos el total de dinero
+                totalMoney += price;
+
+                // Contamos la cantidad de cada tipo
+                if (typeCounts.ContainsKey(type))
+                {
+                    typeCounts[type]++;
+                }
+                else
+                {
+                    typeCounts[type] = 1;
+                }
+            }
+
+            // Crear DataTable para mostrar en dataGridViewSummary
+            DataTable summaryTable = new DataTable();
+            summaryTable.Columns.Add("Description", typeof(string));
+            summaryTable.Columns.Add("Price", typeof(string));
+
+            // Agregar cantidad de cada tipo al DataTable
+            foreach (var typeCount in typeCounts)
+            {
+                summaryTable.Rows.Add($"Cantidad de {typeCount.Key}", typeCount.Value);
+            }
+
+            
+
+            // Asignar el DataTable al DataGridView de resumen
+            dataGridView2.DataSource = summaryTable;
+
+            label10.Text = $"Total Investment: {totalMoney}";
 
         }
     }
