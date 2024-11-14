@@ -1,0 +1,42 @@
+# Excluir archivos de usuario de Visual Studio y carpetas de compilación
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Bin y obj folders
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+
+# Paquetes NuGet
+*.nupkg
+*.snupkg
+packages/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Archivos de publicación y logs de despliegue
+publish/
+*.publishsettings
+*.log
+logs/
+
+# Archivos de configuración generados
+appsettings.*.json
+
+# Archivos temporales de test
+TestResults/
+*.trx
+*.coverage
+
+# Otros archivos de compilación
+*.dll
+*.exe
+*.pdb
+*.mdb
+*.cache
+*.ilk
+*.meta
