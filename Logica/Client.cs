@@ -10,6 +10,7 @@ namespace Calzado_Ulacit.Logica
     {
         private int cltId;
         private string cltName;
+        private string cltLastName;
         private string cltAddress;
         private int cltPhoneNum;
 
