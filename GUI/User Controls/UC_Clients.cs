@@ -23,7 +23,10 @@ namespace Calzado_Ulacit
 
         private void UC_Clients_Load(object sender, EventArgs e)
         {
-            fillDataGrid();
+            LoadDataGrid();
+            // Desactiva la selección de la fila inicial
+            dataGridView1.ClearSelection();
+            dataGridView1.CurrentCell = null;
         }
 
         private void textBox2_MouseClick(object sender, MouseEventArgs e)
@@ -187,6 +190,20 @@ namespace Calzado_Ulacit
             string address = textBox4.Text;
             int phoneNumber;
 
+            // Verificar que todos los campos estén llenos
+            if (string.IsNullOrWhiteSpace(textBox2.Text) ||
+                string.IsNullOrWhiteSpace(textBox1.Text) ||
+                string.IsNullOrWhiteSpace(textBox4.Text) ||
+                string.IsNullOrWhiteSpace(textBox3.Text) ||
+                textBox3.Text.Equals("Enter client phone number here") ||
+                textBox2.Text.Equals("Enter client name here") ||
+                textBox1.Text.Equals("Enter client last name here") ||
+                textBox4.Text.Equals("Enter client address here"))
+            {
+                MessageBox.Show("Todos los campos deben estar llenos.");
+                return;
+            }
+
             if (int.TryParse(textBox3.Text, out phoneNumber))
             {
                 // Crear una instancia del cliente
@@ -203,7 +220,7 @@ namespace Calzado_Ulacit
                 MessageBox.Show("Por favor, ingrese un número de teléfono válido.");
             }
 
-            fillDataGrid();
+            LoadDataGrid();
 
             textBox1.Text = "";
             textBox2.Text = "";
@@ -236,21 +253,101 @@ namespace Calzado_Ulacit
             }
         }
 
-        private void fillDataGrid()
+        private void LoadDataGrid()
         {
-            //SqlConnection conexion = new SqlConnection("server=403-PROF\\ULACIT; database=model; integrated security = true");
-            SqlConnection conexion = new SqlConnection("server=AZIEL; database=UlacitShoes; integrated security = true");
-            conexion.Open();
-            //Tabla de datos en memoria
-            DataTable dt = new DataTable();
-            //DataAdapter es un objeto que almacena n número de DataTables
-            SqlDataAdapter adaptador = new SqlDataAdapter("select * from Clients", conexion);
-            //Llena el adaptador con la instrucción sql
-            adaptador.Fill(dt);
-            //Carga el datagridview1
-            dataGridView1.DataSource = dt;
-            conexion.Close();
+            ClientDataAccess dataAccess = new ClientDataAccess();
+            dataGridView1.DataSource = dataAccess.fillDataGrid();
         }
 
+        private void UC_Clients_Click(object sender, EventArgs e)
+        {
+            dataGridView1.ClearSelection();
+        }
+
+        private void dataGridView1_Click(object sender, EventArgs e)
+        {
+            // Evento vacío para evitar la propagación del click al formulario
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            // Verificar que todos los campos estén llenos
+            if (string.IsNullOrWhiteSpace(textBox2.Text) ||
+                string.IsNullOrWhiteSpace(textBox1.Text) ||
+                string.IsNullOrWhiteSpace(textBox4.Text) ||
+                string.IsNullOrWhiteSpace(textBox3.Text) ||
+                textBox3.Text.Equals("Enter client phone number here") ||
+                textBox2.Text.Equals("Enter client name here") ||
+                textBox1.Text.Equals("Enter client last name here") ||
+                textBox4.Text.Equals("Enter client address here"))
+            {
+                MessageBox.Show("Todos los campos deben estar llenos.");
+                return;
+            }
+
+            // Verificar que el número de teléfono sea un entero válido
+            if (!int.TryParse(textBox3.Text, out int phoneNumber))
+            {
+                MessageBox.Show("El número de teléfono debe ser un valor numérico.");
+                return;
+            }
+
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                int clientId = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["cltIdDataGridViewTextBoxColumn"].Value);
+
+                // Crear un objeto Client con los datos actualizados (sin el ID)
+                Client updatedClient = new Client(
+                    textBox2.Text.Trim(),
+                    textBox1.Text.Trim(),
+                    textBox4.Text.Trim(),
+                    phoneNumber
+                );
+
+                // Instancia de ClientDataAccess para actualizar el cliente en la base de datos
+                ClientDataAccess dataAccess = new ClientDataAccess();
+                dataAccess.UpdateClient(clientId, updatedClient);
+
+                // Actualizar la fila seleccionada en el DataGridView
+                dataGridView1.SelectedRows[0].Cells["cltNameDataGridViewTextBoxColumn"].Value = updatedClient.CltName;
+                dataGridView1.SelectedRows[0].Cells["cltLastNameDataGridViewTextBoxColumn"].Value = updatedClient.CltLastName;
+                dataGridView1.SelectedRows[0].Cells["cltAddressDataGridViewTextBoxColumn"].Value = updatedClient.CltAddress;
+                dataGridView1.SelectedRows[0].Cells["cltPhoneNumDataGridViewTextBoxColumn"].Value = updatedClient.CltPhoneNum;
+
+                MessageBox.Show("Cliente actualizado correctamente.");
+            }
+            else
+            {
+                MessageBox.Show("Seleccione un cliente para actualizar.");
+            }
+
+            textBox1.Text = "";
+            textBox2.Text = "";
+            textBox3.Text = "";
+            textBox4.Text = "";
+
+            LoadDataGrid();
+        }
+
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Verifica que la fila seleccionada sea válida
+            if (e.RowIndex >= 0)
+            {
+                // Obtiene la fila en la que se hizo doble clic
+                DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+
+                // Asigna los valores de la fila a los TextBox
+                textBox2.Text = row.Cells["cltNameDataGridViewTextBoxColumn"].Value?.ToString() ?? "";
+                textBox1.Text = row.Cells["cltLastNameDataGridViewTextBoxColumn"].Value?.ToString() ?? "";
+                textBox4.Text = row.Cells["cltAddressDataGridViewTextBoxColumn"].Value?.ToString() ?? "";
+                textBox3.Text = row.Cells["cltPhoneNumDataGridViewTextBoxColumn"].Value?.ToString() ?? "";
+            }
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

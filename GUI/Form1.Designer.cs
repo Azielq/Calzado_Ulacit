@@ -163,7 +163,7 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(245, 46);
             this.button2.TabIndex = 1;
-            this.button2.Text = "View Stock";
+            this.button2.Text = "Shoes";
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
