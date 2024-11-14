@@ -8,11 +8,13 @@ namespace Calzado_Ulacit.Logica
 {
     internal class Client
     {
+        //Atributos
         private string cltName;
         private string cltLastName;
         private string cltAddress;
         private int cltPhoneNum;
 
+        //Constructor
         public Client(string cltName, string cltLastName, string cltAddress, int cltPhoneNum)
         {
             this.cltName = cltName;
@@ -21,6 +23,7 @@ namespace Calzado_Ulacit.Logica
             this.cltPhoneNum = cltPhoneNum;
         }
 
+        //Getters y Setters
         public string CltName { get => cltName; set => cltName = value; }
         public string CltLastName { get => cltLastName; set => cltLastName = value; }
         public string CltAddress { get => cltAddress; set => cltAddress = value; }

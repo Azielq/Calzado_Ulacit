@@ -17,8 +17,8 @@ namespace Calzado_Ulacit.GUI.User_Controls
         public UC_Stock()
         {
             InitializeComponent();
-            LoadDataGrid();
-            CalculateAndDisplaySummary();
+            LoadDataGrid(); // Carga datos en el DataGridView principal
+            CalculateAndDisplaySummary();  // Muestra resumen de datos
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -28,8 +28,10 @@ namespace Calzado_Ulacit.GUI.User_Controls
 
         private void LoadDataGrid()
         {
+            // Crea una instancia para acceder a datos y asigna el DataTable al DataGridView
             ShoeDataAccess dataAccess = new ShoeDataAccess();
             dataGridView1.DataSource = dataAccess.fillDataGrid();
+
             // Desactiva la selección de la fila inicial
             dataGridView1.ClearSelection();
             dataGridView1.CurrentCell = null;
@@ -42,12 +44,18 @@ namespace Calzado_Ulacit.GUI.User_Controls
 
         private void UC_Stock_Load(object sender, EventArgs e)
         {
-            LoadDataGrid();
-            CalculateAndDisplaySummary();
+            // Carga datos en el DataGridView principal
+            CalculateAndDisplaySummary();  // Muestra resumen de datos
+
+
+            // Desactiva la selección de la fila inicial
+            dataGridView1.ClearSelection();
+            dataGridView1.CurrentCell = null;
             dataGridView1.ClearSelection();
             dataGridView1.CurrentCell = null;
         }
 
+        // Métodos para cambiar color en los TextBoxes cuando se ingresan datos
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
             textBox2.ForeColor = Color.Black;
@@ -218,6 +226,7 @@ namespace Calzado_Ulacit.GUI.User_Controls
 
         private void clear()
         {
+            // Restablece los campos de entrada a su valor predeterminado si están vacíos
             if (string.IsNullOrEmpty(textBox1.Text) || !textBox1.Text.Equals("Enter shoe color here"))
             {
                 textBox1.Text = "Enter shoe color here";
@@ -259,12 +268,14 @@ namespace Calzado_Ulacit.GUI.User_Controls
 
         private void button1_Click(object sender, EventArgs e)
         {
+            // Captura datos de entrada
             string shoeName = textBox2.Text;
             string shoeColor = textBox1.Text;
             string shoeType = textBox4.Text;
             int shoeSize = comboBox1.SelectedIndex;
             float shoePrice;
 
+            // Verifica que los campos no estén vacíos
             if (string.IsNullOrWhiteSpace(textBox2.Text) ||
                 string.IsNullOrWhiteSpace(textBox1.Text) ||
                 string.IsNullOrWhiteSpace(textBox4.Text) ||
@@ -278,6 +289,7 @@ namespace Calzado_Ulacit.GUI.User_Controls
                 return;
             }
 
+            // Convierte el precio de string a float y agrega el zapato a la base de datos
             if (float.TryParse(textBox3.Text, out shoePrice))
             {
                 Shoe shoe = new Shoe(shoeName, shoeColor, shoeSize, shoeType, shoePrice);
@@ -292,6 +304,7 @@ namespace Calzado_Ulacit.GUI.User_Controls
                 MessageBox.Show("Por favor, ingrese un precio válido.");
             }
 
+            // Actualiza DataGrid y resumen después de agregar
             LoadDataGrid();
             CalculateAndDisplaySummary();
             clear();
@@ -309,6 +322,7 @@ namespace Calzado_Ulacit.GUI.User_Controls
 
         private void comboBox1_Enter(object sender, EventArgs e)
         {
+                
             // Cambiar el color de fuente a negro cuando se hace clic en el ComboBox
             comboBox1.ForeColor = Color.Black;
 
@@ -335,7 +349,7 @@ namespace Calzado_Ulacit.GUI.User_Controls
 
         private void button2_Click(object sender, EventArgs e)
         {
-            // Delete Button
+            // Botón Eliminar: verifica que haya una fila seleccionada
             if (dataGridView1.SelectedRows.Count > 0) // Verifica que haya una fila seleccionada
             {
                 // Obtiene el ID de la fila seleccionada
@@ -363,7 +377,7 @@ namespace Calzado_Ulacit.GUI.User_Controls
 
         private void button4_Click(object sender, EventArgs e)
         {
-            // Verificar que todos los campos estén llenos
+            // Botón Actualizar: verifica que todos los campos estén llenos         
             if (string.IsNullOrWhiteSpace(textBox2.Text) ||
                 string.IsNullOrWhiteSpace(textBox1.Text) ||
                 string.IsNullOrWhiteSpace(textBox4.Text) ||

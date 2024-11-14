@@ -17,6 +17,7 @@ namespace Calzado_Ulacit
         public UserControl1()
         {
             InitializeComponent();
+            // Configura el texto de los labels para indicar las funcionalidades del sistema
             label2.Text = "Manage your store \nefficiently and optimally";
             label3.Text = "This tool will allow you to keep a complete and detailed\ncontrol of the stock. Please click an option.";
 
@@ -39,6 +40,11 @@ namespace Calzado_Ulacit
         }
 
         private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void UserControl1_Load(object sender, EventArgs e)
         {
 
         }

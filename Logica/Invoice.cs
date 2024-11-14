@@ -8,6 +8,7 @@ namespace Calzado_Ulacit.Logica
 {
     internal class Invoice
     {
+        //Atributos
         private int clientID;
         private string saleDate;
         private int invID;
@@ -16,6 +17,7 @@ namespace Calzado_Ulacit.Logica
         private int shoeAmount;
         private float totalSale;
 
+        // Constructor para inicializar un objeto `Invoice` con todos sus detalles
         public Invoice(int clientID, string saleDate, int invID, string shoeName, float shoePrice, int shoeAmount, float totalSale)
         {
             this.clientID = clientID;
@@ -28,7 +30,7 @@ namespace Calzado_Ulacit.Logica
         }
 
 
-
+        //Getters y setters
         public int ClientID { get => clientID; set => clientID = value; }
         public string SaleDate { get => saleDate; set => saleDate = value; }
         public int InvID { get => invID; set => invID = value; }

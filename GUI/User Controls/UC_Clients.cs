@@ -1,5 +1,4 @@
-﻿using Avalonia.Styling;
-using Calzado_Ulacit.Logica;
+﻿using Calzado_Ulacit.Logica;
 using Calzado_Ulacit.Persistencia;
 using System;
 using System.Collections.Generic;
@@ -16,21 +15,24 @@ namespace Calzado_Ulacit
 {
     public partial class UC_Clients : UserControl
     {
+        // Constructor
         public UC_Clients()
         {
             InitializeComponent();
         }
 
+        // Evento que se ejecuta al cargar el UserControl
         private void UC_Clients_Load(object sender, EventArgs e)
         {
-            LoadDataGrid();
-            // Desactiva la selección de la fila inicial
-            dataGridView1.ClearSelection();
-            dataGridView1.CurrentCell = null;
+            LoadDataGrid(); // Carga los datos en el DataGridView
+            dataGridView1.ClearSelection(); // Desactiva la selección inicial
+            dataGridView1.CurrentCell = null; // Asegura que no haya celdas seleccionadas
         }
 
+        // Método que maneja el evento de clic en el textBox2 (nombre del cliente)
         private void textBox2_MouseClick(object sender, MouseEventArgs e)
         {
+            // Resetea el texto y color de los TextBox si el valor es el texto inicial
             if (textBox2.Text.Equals("Enter client name here"))
             {
                 textBox2.Text = "";
@@ -57,6 +59,7 @@ namespace Calzado_Ulacit
 
         }
 
+        // Eventos que cambian el color del texto cuando el usuario escribe en el TextBox
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
             textBox2.ForeColor = Color.Black;
@@ -67,6 +70,7 @@ namespace Calzado_Ulacit
             textBox1.ForeColor = Color.Black;
         }
 
+        // Método para limpiar el contenido de los TextBox y restablecer su color
         private void textBox1_MouseClick(object sender, MouseEventArgs e)
         {
 
@@ -101,6 +105,7 @@ namespace Calzado_Ulacit
             textBox4.ForeColor = Color.Black;
         }
 
+        // Método para limpiar el contenido de los TextBox y restablecer su color
         private void textBox4_MouseClick(object sender, MouseEventArgs e)
         {
             //Adrress
@@ -129,6 +134,7 @@ namespace Calzado_Ulacit
             }
         }
 
+        // Método para limpiar el contenido de los TextBox y restablecer su color
         private void textBox3_MouseClick(object sender, MouseEventArgs e)
         {
             if (textBox3.Text.Equals("Enter client phone number here"))
@@ -161,8 +167,9 @@ namespace Calzado_Ulacit
             textBox3.ForeColor = Color.Black;
         }
 
+        // Método para limpiar el contenido de los TextBox y restablecer su color
         private void button3_Click(object sender, EventArgs e)
-        {
+        {   
             if (string.IsNullOrEmpty(textBox1.Text) || !textBox1.Text.Equals("Enter client last name here"))
                 textBox1.Text = "Enter client last name here";
                 textBox1.ForeColor = Color.FromArgb(224, 224, 224);
@@ -184,6 +191,7 @@ namespace Calzado_Ulacit
 
         }
 
+        // Método para agregar un nuevo cliente
         private void button1_Click(object sender, EventArgs e)
         {
             //Botón AÑADIR DATOS
@@ -193,7 +201,7 @@ namespace Calzado_Ulacit
             string address = textBox4.Text;
             int phoneNumber;
 
-            // Verificar que todos los campos estén llenos
+            // Verifica que todos los campos estén llenos y tengan datos válidos
             if (string.IsNullOrWhiteSpace(textBox2.Text) ||
                 string.IsNullOrWhiteSpace(textBox1.Text) ||
                 string.IsNullOrWhiteSpace(textBox4.Text) ||
@@ -207,6 +215,7 @@ namespace Calzado_Ulacit
                 return;
             }
 
+            // Valida que el número de teléfono sea un número entero
             if (int.TryParse(textBox3.Text, out phoneNumber))
             {
                 // Crear una instancia del cliente
@@ -225,6 +234,7 @@ namespace Calzado_Ulacit
 
             LoadDataGrid();
 
+            // Limpia los TextBox después de agregar el cliente
             textBox1.Text = "";
             textBox2.Text = "";
             textBox3.Text = "";
@@ -234,6 +244,7 @@ namespace Calzado_Ulacit
             dataGridView1.CurrentCell = null;
         }
 
+        // Método para eliminar un cliente
         private void button2_Click(object sender, EventArgs e)
         {
             //Delete Button
@@ -261,6 +272,7 @@ namespace Calzado_Ulacit
             dataGridView1.CurrentCell = null;
         }
 
+        // Carga los datos de los clientes en el DataGridView
         private void LoadDataGrid()
         {
             ClientDataAccess dataAccess = new ClientDataAccess();
@@ -280,6 +292,7 @@ namespace Calzado_Ulacit
             // Evento vacío para evitar la propagación del click al formulario
         }
 
+        // Método para actualizar un cliente existente
         private void button4_Click(object sender, EventArgs e)
         {
             // Verificar que todos los campos estén llenos
@@ -343,6 +356,7 @@ namespace Calzado_Ulacit
             LoadDataGrid();
         }
 
+        // Método que carga los datos en los TextBox al hacer doble clic en una fila
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             // Verifica que la fila seleccionada sea válida

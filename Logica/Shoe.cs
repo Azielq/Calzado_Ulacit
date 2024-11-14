@@ -8,12 +8,14 @@ namespace Calzado_Ulacit.Logica
 {
     internal class Shoe
     {
+        //Atributos de Zapatos
         private string shoeName;
         private string shoeColor;
         private int shoeSize;
         private string type;
         private float price;
 
+        //Constructor de un zapato con sus parámetros
         public Shoe(string shoeName, string shoeColor, int shoeSize, string type, float price)
         {
             this.shoeName = shoeName;
@@ -23,6 +25,7 @@ namespace Calzado_Ulacit.Logica
             this.price = price;
         }
 
+        //Getters y Setters
         public string ShoeName { get => shoeName; set => shoeName = value; }
         public string ShoeColor { get => shoeColor; set => shoeColor = value; }
         public int ShoeSize { get => shoeSize; set => shoeSize = value; }
