@@ -493,7 +493,7 @@ namespace Calzado_Ulacit.GUI.User_Controls
             // Agregar cantidad de cada tipo al DataTable
             foreach (var typeCount in typeCounts)
             {
-                summaryTable.Rows.Add($"Cantidad de {typeCount.Key}", typeCount.Value);
+                summaryTable.Rows.Add($"Amount of {typeCount.Key}", typeCount.Value);
             }
 
             
@@ -502,6 +502,9 @@ namespace Calzado_Ulacit.GUI.User_Controls
             dataGridView2.DataSource = summaryTable;
 
             label10.Text = $"Total Investment: {totalMoney}";
+
+            dataGridView2.ClearSelection();
+            dataGridView2.CurrentCell = null;
 
         }
     }
