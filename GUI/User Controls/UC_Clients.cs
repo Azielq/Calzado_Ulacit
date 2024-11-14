@@ -179,6 +179,9 @@ namespace Calzado_Ulacit
                 textBox4.Text = "Enter client address here";
                 textBox4.ForeColor = Color.FromArgb(224, 224, 224);
 
+            dataGridView1.ClearSelection();
+            dataGridView1.CurrentCell = null;
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -227,6 +230,8 @@ namespace Calzado_Ulacit
             textBox3.Text = "";
             textBox4.Text = "";
 
+            dataGridView1.ClearSelection();
+            dataGridView1.CurrentCell = null;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -251,12 +256,18 @@ namespace Calzado_Ulacit
             {
                 MessageBox.Show("Seleccione una fila para eliminar.");
             }
+
+            dataGridView1.ClearSelection();
+            dataGridView1.CurrentCell = null;
         }
 
         private void LoadDataGrid()
         {
             ClientDataAccess dataAccess = new ClientDataAccess();
             dataGridView1.DataSource = dataAccess.fillDataGrid();
+            // Desactiva la selección de la fila inicial
+            dataGridView1.ClearSelection();
+            dataGridView1.CurrentCell = null;
         }
 
         private void UC_Clients_Click(object sender, EventArgs e)
@@ -325,6 +336,9 @@ namespace Calzado_Ulacit
             textBox2.Text = "";
             textBox3.Text = "";
             textBox4.Text = "";
+
+            dataGridView1.ClearSelection();
+            dataGridView1.CurrentCell = null;
 
             LoadDataGrid();
         }
