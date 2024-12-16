@@ -44,7 +44,15 @@ namespace Calzado_Ulacit.GUI.User_Controls
 
         private void button4_Click(object sender, EventArgs e)
         {
+            // Crear una instancia del formulario
+            Form_SelectClient selectClientForm = new Form_SelectClient();
 
+            // Mostrarlo como cuadro de diálogo
+            if (selectClientForm.ShowDialog() == DialogResult.OK)
+            {
+                // Asignar el cliente seleccionado al label10
+                label10.Text = selectClientForm.SelectedClient;
+            }
         }
     }
 }

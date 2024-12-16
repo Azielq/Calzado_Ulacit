@@ -126,6 +126,12 @@
     <Compile Include="GUI\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\User Controls\Form_SelectClient.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\User Controls\Form_SelectClient.Designer.cs">
+      <DependentUpon>Form_SelectClient.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\User Controls\UC_CashOut.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -180,6 +186,9 @@
     </Compile>
     <EmbeddedResource Include="GUI\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\User Controls\Form_SelectClient.resx">
+      <DependentUpon>Form_SelectClient.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\User Controls\UC_CashOut.resx">
       <DependentUpon>UC_CashOut.cs</DependentUpon>
