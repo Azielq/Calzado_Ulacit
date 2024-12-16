@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,6 +36,19 @@ namespace Calzado_Ulacit.GUI.User_Controls
             // Desactiva la selección de la fila inicial
             dataGridView1.ClearSelection();
             dataGridView1.CurrentCell = null;
+
+            // Configurar el estilo de la columna de precio
+            DataGridViewCellStyle style = new DataGridViewCellStyle();
+            style.Format = "C"; // Formato moneda
+                                // Crear cultura personalizada
+            CultureInfo ci = new CultureInfo("es-ES", false);
+            // Cambiar el símbolo de moneda, por ejemplo a €
+            ci.NumberFormat.CurrencySymbol = "$";
+
+            style.FormatProvider = ci;
+
+            // Asignar el estilo a la columna de precio
+            dataGridView1.Columns["priceDataGridViewTextBoxColumn"].DefaultCellStyle = style;
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -272,7 +286,7 @@ namespace Calzado_Ulacit.GUI.User_Controls
             string shoeName = textBox2.Text;
             string shoeColor = textBox1.Text;
             string shoeType = textBox4.Text;
-            int shoeSize = comboBox1.SelectedIndex;
+            
             float shoePrice;
 
             // Verifica que los campos no estén vacíos
@@ -289,6 +303,21 @@ namespace Calzado_Ulacit.GUI.User_Controls
                 return;
             }
 
+            // Validar que el ComboBox tenga un valor numérico
+            if (string.IsNullOrWhiteSpace(comboBox1.Text) || comboBox1.Text.Equals("Select shoe size"))
+            {
+                MessageBox.Show("Por favor, seleccione una talla de zapato.");
+                return;
+            }
+
+            // Verifica que la talla sea un número entero
+            int shoeSize;
+            if (!int.TryParse(comboBox1.Text, out shoeSize))
+            {
+                MessageBox.Show("La talla del zapato debe ser un número entero.");
+                return;
+            }
+
             // Convierte el precio de string a float y agrega el zapato a la base de datos
             if (float.TryParse(textBox3.Text, out shoePrice))
             {
@@ -302,7 +331,9 @@ namespace Calzado_Ulacit.GUI.User_Controls
             else
             {
                 MessageBox.Show("Por favor, ingrese un precio válido.");
+                return;
             }
+
 
             // Actualiza DataGrid y resumen después de agregar
             LoadDataGrid();
@@ -502,7 +533,7 @@ namespace Calzado_Ulacit.GUI.User_Controls
             // Crear DataTable para mostrar en dataGridViewSummary
             DataTable summaryTable = new DataTable();
             summaryTable.Columns.Add("Description", typeof(string));
-            summaryTable.Columns.Add("Price", typeof(string));
+            summaryTable.Columns.Add("Amount", typeof(string));
 
             // Agregar cantidad de cada tipo al DataTable
             foreach (var typeCount in typeCounts)
