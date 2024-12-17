@@ -128,5 +128,41 @@ namespace Calzado_Ulacit.Persistencia
             }
             return dt; // Devuelve el DataTable con los datos de la tabla Shoe
         }
+
+        public DataTable GetAllShoes()
+        {
+            DataTable dt = new DataTable(); // Crea un nuevo DataTable para almacenar los datos
+            try
+            {
+                con.Open(); // Abre la conexión a la base de datos
+                string query = "SELECT shoeId, shoeName, price FROM Shoe"; // Define la consulta de selección
+                SqlDataAdapter adaptador = new SqlDataAdapter(query, con); // Usa un adaptador para llenar el DataTable
+                adaptador.Fill(dt);
+
+                // Recorrer las filas y aplicar Trim a las columnas de tipo string para eliminar espacios en blanco
+                foreach (DataRow row in dt.Rows)
+                {
+                    for (int i = 0; i < dt.Columns.Count; i++)
+                    {
+                        if (row[i] is string)
+                        {
+                            row[i] = row[i].ToString().Trim(); // Elimina espacios en blanco al inicio y al final
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al llenar DataGrid: " + ex.Message);  // Muestra mensaje de error en caso de excepción
+            }
+            finally
+            {
+                con.Close(); // Cierra la conexión
+            }
+            return dt; // Devuelve el DataTable con los datos de la tabla Shoe
+        }
+
     }
+
+
 }

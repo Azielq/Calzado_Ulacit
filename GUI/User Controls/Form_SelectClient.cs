@@ -14,6 +14,7 @@ namespace Calzado_Ulacit.GUI.User_Controls
     {
 
         public string SelectedClient { get; private set; } // Cliente seleccionado
+        public int SelectedClientID { get; private set; } //ID Seleccionado
 
         public Form_SelectClient()
         {
@@ -22,7 +23,7 @@ namespace Calzado_Ulacit.GUI.User_Controls
 
         private void Form_SelectClient_Load(object sender, EventArgs e)
         {
-            // TODO: esta línea de código carga datos en la tabla 'ulacitShoesDataSet.Clients' Puede moverla o quitarla según sea necesario.
+            //esta línea de código carga datos en la tabla 'ulacitShoesDataSet.Clients'
             this.clientsTableAdapter.Fill(this.ulacitShoesDataSet.Clients);
 
         }
@@ -50,6 +51,10 @@ namespace Calzado_Ulacit.GUI.User_Controls
                 string nombre = dataGridView1.CurrentRow.Cells["cltNameDataGridViewTextBoxColumn"].Value.ToString().Trim();
                 string apellido = dataGridView1.CurrentRow.Cells["cltLastNameDataGridViewTextBoxColumn"].Value.ToString().Trim();
                 SelectedClient = $"{nombre} {apellido}";
+
+                // Obtener el ID del cliente seleccionado
+                SelectedClientID = Convert.ToInt32(dataGridView1.CurrentRow.Cells["cltIDDataGridViewTextBoxColumn"].Value);
+
 
                 // Confirmar y cerrar el formulario
                 this.DialogResult = DialogResult.OK;
