@@ -131,6 +131,7 @@ namespace Calzado_Ulacit.GUI.User_Controls
                 // Agregar fila al DataGridView
                 // Asumiendo columnas: ShoeID, ShoeName, Quantity, UnitPrice, Discount
                 dataGridView2.Rows.Add(selectedShoeId, selectedShoeName, 1, price, 0);
+                dataGridView2.ClearSelection();
             }
         }
 
@@ -138,29 +139,22 @@ namespace Calzado_Ulacit.GUI.User_Controls
         {
             if (e.KeyCode == Keys.Enter)
             {
-                e.SuppressKeyPress = true; // Evita el behavior por defecto del combo
+                e.SuppressKeyPress = true;
                 string text = comboBoxShoes.Text.Trim();
 
-                int shoeId = 0;
+                if (string.IsNullOrEmpty(text))
+                {
+                    // Si no se ingresó nada, no hacer nada
+                    return;
+                }
+
+                int shoeId;
                 bool idFound = false;
 
-                // Intentar parsear el ID desde el texto (formato "[id] - nombre" o solo id)
-                if (text.StartsWith("[") && text.Contains("]"))
+                // Intentar parsear el texto directamente como ID
+                if (int.TryParse(text, out shoeId))
                 {
-                    int endBracketIndex = text.IndexOf(']');
-                    string idPart = text.Substring(1, endBracketIndex - 1);
-                    if (int.TryParse(idPart, out shoeId))
-                    {
-                        idFound = true;
-                    }
-                }
-                else
-                {
-                    // Intento directo: ¿ingresó solo un número?
-                    if (int.TryParse(text, out shoeId))
-                    {
-                        idFound = true;
-                    }
+                    idFound = true;
                 }
 
                 if (idFound)
@@ -170,43 +164,53 @@ namespace Calzado_Ulacit.GUI.User_Controls
                     if (rows.Length > 0)
                     {
                         AddShoeToGrid(rows[0]);
+                        dataGridView2.ClearSelection();
                         return;
                     }
                     else
                     {
                         MessageBox.Show("No se encontró ningún zapato con ese ID.");
+                        dataGridView2.ClearSelection();
                         return;
                     }
                 }
                 else
                 {
-                    // Si no es ID, intentamos coincidencia exacta en DisplayText
+                    // Coincidencia exacta en DisplayText
                     DataRow[] exactRows = shoesTable.Select($"DisplayText = '{text.Replace("'", "''")}'");
                     if (exactRows.Length == 1)
                     {
-                        // Coincidencia exacta en DisplayText
                         AddShoeToGrid(exactRows[0]);
+                        dataGridView2.ClearSelection();
                         return;
                     }
                     else if (exactRows.Length > 1)
                     {
-                        // Si por alguna razón hay múltiples filas con el mismo DisplayText exacto
-                        // (algo improbable si el ID es único), se toma la primera.
+                        // Si hay múltiples coincidencias exactas, tomar la primera
                         AddShoeToGrid(exactRows[0]);
+                        dataGridView2.ClearSelection();
                         return;
                     }
 
-                    // Si no hay coincidencia exacta, probar con LIKE para coincidencias parciales
-                    DataRow[] partialRows = shoesTable.Select($"DisplayText LIKE '%{text.Replace("'", "''")}%'");
+                    // Si no hay coincidencia exacta, intentar coincidencia parcial
+                    DataRow[] partialRows = shoesTable.Select($"DisplayText LIKE '{text.Replace("'", "''")}%'");
                     if (partialRows.Length == 1)
                     {
-                        // Una sola coincidencia parcial
                         AddShoeToGrid(partialRows[0]);
+                        dataGridView2.ClearSelection();
+                        return;
                     }
-                    else
+                    else if (partialRows.Length > 1)
                     {
-                        MessageBox.Show("No se encontró ninguna coincidencia.");
+                        MessageBox.Show("Se encontraron múltiples coincidencias, especifique más el nombre o el ID.");
+                        dataGridView2.ClearSelection();
+                        return;
                     }
+
+                    // Sin coincidencias
+                    MessageBox.Show("No se encontró ninguna coincidencia.");
+                    dataGridView2.ClearSelection();
+                    return;
                 }
             }
         }
@@ -223,6 +227,11 @@ namespace Calzado_Ulacit.GUI.User_Controls
             // Opcional: limpiar el texto del combo
             comboBoxShoes.Text = "";
             comboBoxShoes.SelectedIndex = -1;
+        }
+
+        private void UC_Sell_Click(object sender, EventArgs e)
+        {
+            dataGridView2.ClearSelection();
         }
     }
 }
