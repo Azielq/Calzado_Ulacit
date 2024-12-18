@@ -20,7 +20,7 @@ namespace Calzado_Ulacit.Utilidades
 
                 // Título
                 var titleFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 18);
-                Paragraph title = new Paragraph("Factura de Venta - Ulacit Shoes", titleFont)
+                Paragraph title = new Paragraph("Invoice - Ulacit Shoes", titleFont)
                 {
                     Alignment = Element.ALIGN_CENTER,
                     SpacingAfter = 20
@@ -33,17 +33,17 @@ namespace Calzado_Ulacit.Utilidades
                 {
                     WidthPercentage = 100
                 };
-                infoTable.AddCell(new Phrase("ID de Factura:", infoFont));
+                infoTable.AddCell(new Phrase("Invoice ID:", infoFont));
                 infoTable.AddCell(new Phrase(invoice.InvoiceId.ToString(), infoFont));
-                infoTable.AddCell(new Phrase("Cliente:", infoFont));
+                infoTable.AddCell(new Phrase("Client:", infoFont));
                 infoTable.AddCell(new Phrase(clientName, infoFont));
-                infoTable.AddCell(new Phrase("Fecha de Factura:", infoFont));
+                infoTable.AddCell(new Phrase("Invoice Date:", infoFont));
                 infoTable.AddCell(new Phrase(invoice.InvoiceDate.ToString("dd/MM/yyyy"), infoFont));
-                infoTable.AddCell(new Phrase("Descuento Factura (%):", infoFont));
+                infoTable.AddCell(new Phrase("Invoice Discount (%):", infoFont));
                 infoTable.AddCell(new Phrase((invoice.Discount * 100).ToString("F2"), infoFont));
 
                 // **Añadir Método de Pago**
-                infoTable.AddCell(new Phrase("Método de Pago:", infoFont));
+                infoTable.AddCell(new Phrase("Payment Method:", infoFont));
                 infoTable.AddCell(new Phrase(invoice.PaymentMethod, infoFont));
 
                 document.Add(infoTable);
@@ -58,10 +58,10 @@ namespace Calzado_Ulacit.Utilidades
 
                 // Encabezados
                 table.AddCell(new Phrase("ID", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12)));
-                table.AddCell(new Phrase("Zapato", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12)));
-                table.AddCell(new Phrase("Cantidad", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12)));
-                table.AddCell(new Phrase("Precio Unitario", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12)));
-                table.AddCell(new Phrase("Descuento", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12)));
+                table.AddCell(new Phrase("Shoe", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12)));
+                table.AddCell(new Phrase("Amount", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12)));
+                table.AddCell(new Phrase("Unit Price", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12)));
+                table.AddCell(new Phrase("Discount", FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12)));
 
                 // Datos de los ítems
                 foreach (var item in items)
@@ -86,17 +86,10 @@ namespace Calzado_Ulacit.Utilidades
 
                 totalTable.AddCell(new Phrase("Subtotal:", infoFont));
                 totalTable.AddCell(new Phrase(subtotal.ToString("C2"), infoFont));
-                totalTable.AddCell(new Phrase("Impuesto (13%):", infoFont));
+                totalTable.AddCell(new Phrase("Tax (13%):", infoFont));
                 totalTable.AddCell(new Phrase(tax.ToString("C2"), infoFont));
                 totalTable.AddCell(new Phrase("Total:", infoFont));
                 totalTable.AddCell(new Phrase(total.ToString("C2"), infoFont));
-
-                // **Añadir Método de Pago en Totales (Opcional)**
-                // Si deseas mostrar el método de pago también en la sección de totales, descomenta las siguientes líneas:
-                /*
-                totalTable.AddCell(new Phrase("Método de Pago:", infoFont));
-                totalTable.AddCell(new Phrase(invoice.PaymentMethod, infoFont));
-                */
 
                 document.Add(totalTable);
             }
