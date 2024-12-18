@@ -8,35 +8,23 @@ namespace Calzado_Ulacit.Logica
 {
     internal class Invoice
     {
+        
+
         //Atributos
-        private int clientID;
-        private string saleDate;
-        private int invID;
-        private string shoeName;
-        private float shoePrice;
-        private int shoeAmount;
-        private float totalSale;
+        public int InvoiceId { get; set; }
+        public int ClientId { get; set; }
+        public DateTime InvoiceDate { get; set; }
+        public decimal Discount { get; set; }
+        public decimal TotalAmount { get; set; }
 
-        // Constructor para inicializar un objeto `Invoice` con todos sus detalles
-        public Invoice(int clientID, string saleDate, int invID, string shoeName, float shoePrice, int shoeAmount, float totalSale)
+
+        public Invoice(int invoiceId, int clientId, DateTime invoiceDate, decimal discount, decimal totalAmount)
         {
-            this.clientID = clientID;
-            this.saleDate = saleDate;
-            this.invID = invID;
-            this.shoeName = shoeName;
-            this.shoePrice = shoePrice;
-            this.shoeAmount = shoeAmount;
-            this.totalSale = totalSale;
+            InvoiceId = invoiceId;
+            ClientId = clientId;
+            InvoiceDate = invoiceDate;
+            Discount = discount;
+            TotalAmount = totalAmount;
         }
-
-
-        //Getters y setters
-        public int ClientID { get => clientID; set => clientID = value; }
-        public string SaleDate { get => saleDate; set => saleDate = value; }
-        public int InvID { get => invID; set => invID = value; }
-        public string ShoeName { get => shoeName; set => shoeName = value; }
-        public float ShoePrice { get => shoePrice; set => shoePrice = value; }
-        public int ShoeAmount { get => shoeAmount; set => shoeAmount = value; }
-        public float TotalSale { get => totalSale; set => totalSale = value; }
     }
 }

@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UC_Sell));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
@@ -46,14 +46,24 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.comboBoxShoes = new System.Windows.Forms.ComboBox();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ShoeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.UnitPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Discount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.comboBoxShoes = new System.Windows.Forms.ComboBox();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -83,7 +93,7 @@
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Segoe UI Semilight", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(924, 709);
+            this.button1.Location = new System.Drawing.Point(920, 673);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(158, 59);
             this.button1.TabIndex = 31;
@@ -108,7 +118,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI Semilight", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(33, 182);
+            this.label6.Location = new System.Drawing.Point(33, 152);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(157, 31);
             this.label6.TabIndex = 33;
@@ -141,7 +151,7 @@
             this.radioButton1.AutoSize = true;
             this.radioButton1.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.radioButton1.Font = new System.Drawing.Font("Segoe UI Semilight", 7.9F);
-            this.radioButton1.Location = new System.Drawing.Point(729, 745);
+            this.radioButton1.Location = new System.Drawing.Point(728, 710);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(69, 24);
             this.radioButton1.TabIndex = 40;
@@ -154,7 +164,7 @@
             // 
             this.radioButton2.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.radioButton2.Font = new System.Drawing.Font("Segoe UI Semilight", 7.9F);
-            this.radioButton2.Location = new System.Drawing.Point(817, 744);
+            this.radioButton2.Location = new System.Drawing.Point(817, 708);
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(101, 24);
             this.radioButton2.TabIndex = 41;
@@ -167,7 +177,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI Semilight", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(723, 705);
+            this.label3.Location = new System.Drawing.Point(721, 669);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(184, 31);
             this.label3.TabIndex = 42;
@@ -177,11 +187,11 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI Semilight", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(720, 157);
+            this.label4.Location = new System.Drawing.Point(720, 127);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(155, 31);
+            this.label4.Size = new System.Drawing.Size(205, 31);
             this.label4.TabIndex = 43;
-            this.label4.Text = "Enter Shoe ID:";
+            this.label4.Text = "Search Shoes Here:";
             this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // label5
@@ -209,25 +219,25 @@
             this.dataGridView2.AllowUserToAddRows = false;
             this.dataGridView2.AllowUserToDeleteRows = false;
             this.dataGridView2.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(208)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI Semilight", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.LightSkyBlue;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle25.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(208)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle25.Font = new System.Drawing.Font("Segoe UI Semilight", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle25.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle25.SelectionBackColor = System.Drawing.Color.LightSkyBlue;
+            dataGridViewCellStyle25.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle25.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle25;
             this.dataGridView2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridView2.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.dataGridView2.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(51)))), ((int)(((byte)(137)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(51)))), ((int)(((byte)(137)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle26.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(51)))), ((int)(((byte)(137)))));
+            dataGridViewCellStyle26.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle26.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle26.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(83)))), ((int)(((byte)(51)))), ((int)(((byte)(137)))));
+            dataGridViewCellStyle26.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle26.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle26;
             this.dataGridView2.ColumnHeadersHeight = 40;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -236,16 +246,16 @@
             this.Quantity,
             this.UnitPrice,
             this.Discount});
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(234)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI Semilight", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.LightSkyBlue;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView2.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle27.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(234)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle27.Font = new System.Drawing.Font("Segoe UI Semilight", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle27.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle27.SelectionBackColor = System.Drawing.Color.LightSkyBlue;
+            dataGridViewCellStyle27.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle27.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView2.DefaultCellStyle = dataGridViewCellStyle27;
             this.dataGridView2.EnableHeadersVisualStyles = false;
-            this.dataGridView2.Location = new System.Drawing.Point(39, 228);
+            this.dataGridView2.Location = new System.Drawing.Point(39, 198);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowHeadersVisible = false;
             this.dataGridView2.RowHeadersWidth = 51;
@@ -253,19 +263,12 @@
             this.dataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView2.Size = new System.Drawing.Size(1039, 457);
             this.dataGridView2.TabIndex = 47;
-            // 
-            // comboBoxShoes
-            // 
-            this.comboBoxShoes.BackColor = System.Drawing.SystemColors.MenuBar;
-            this.comboBoxShoes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboBoxShoes.Font = new System.Drawing.Font("Segoe UI Semilight", 7.9F);
-            this.comboBoxShoes.FormattingEnabled = true;
-            this.comboBoxShoes.Location = new System.Drawing.Point(726, 188);
-            this.comboBoxShoes.Name = "comboBoxShoes";
-            this.comboBoxShoes.Size = new System.Drawing.Size(352, 25);
-            this.comboBoxShoes.TabIndex = 48;
-            this.comboBoxShoes.SelectedIndexChanged += new System.EventHandler(this.comboBoxShoes_SelectedIndexChanged);
-            this.comboBoxShoes.KeyDown += new System.Windows.Forms.KeyEventHandler(this.comboBoxShoes_KeyDown);
+            this.dataGridView2.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellEndEdit);
+            this.dataGridView2.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dataGridView2_CellValidating);
+            this.dataGridView2.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellValueChanged);
+            this.dataGridView2.CurrentCellDirtyStateChanged += new System.EventHandler(this.dataGridView2_CurrentCellDirtyStateChanged);
+            this.dataGridView2.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dataGridView2_RowsAdded);
+            this.dataGridView2.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridView2_RowsRemoved);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -275,6 +278,7 @@
             this.dataGridViewTextBoxColumn1.MinimumWidth = 6;
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.Width = 125;
             // 
             // ShoeName
             // 
@@ -306,11 +310,124 @@
             this.Discount.Name = "Discount";
             this.Discount.Width = 125;
             // 
+            // comboBoxShoes
+            // 
+            this.comboBoxShoes.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.comboBoxShoes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboBoxShoes.Font = new System.Drawing.Font("Segoe UI Semilight", 7.9F);
+            this.comboBoxShoes.FormattingEnabled = true;
+            this.comboBoxShoes.Location = new System.Drawing.Point(726, 158);
+            this.comboBoxShoes.Name = "comboBoxShoes";
+            this.comboBoxShoes.Size = new System.Drawing.Size(352, 25);
+            this.comboBoxShoes.TabIndex = 48;
+            this.comboBoxShoes.SelectedIndexChanged += new System.EventHandler(this.comboBoxShoes_SelectedIndexChanged);
+            this.comboBoxShoes.KeyDown += new System.Windows.Forms.KeyEventHandler(this.comboBoxShoes_KeyDown);
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(515, 708);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(49, 22);
+            this.numericUpDown1.TabIndex = 49;
+            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Segoe UI Semilight", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(509, 669);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(176, 31);
+            this.label8.TabIndex = 50;
+            this.label8.Text = "Invoice Discount";
+            this.label8.Click += new System.EventHandler(this.label8_Click);
+            // 
+            // label9
+            // 
+            this.label9.Font = new System.Drawing.Font("Segoe UI Semilight", 10.8F);
+            this.label9.Location = new System.Drawing.Point(31, 693);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(50, 24);
+            this.label9.TabIndex = 52;
+            this.label9.Text = "Tax:";
+            this.label9.Click += new System.EventHandler(this.label9_Click);
+            // 
+            // label11
+            // 
+            this.label11.Font = new System.Drawing.Font("Segoe UI Semilight", 10.8F);
+            this.label11.Location = new System.Drawing.Point(105, 693);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(66, 24);
+            this.label11.TabIndex = 53;
+            this.label11.Text = "10,000 $";
+            this.label11.Click += new System.EventHandler(this.label11_Click);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Segoe UI Semilight", 15.8F);
+            this.label12.Location = new System.Drawing.Point(103, 721);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(110, 37);
+            this.label12.TabIndex = 55;
+            this.label12.Text = "10,000 $";
+            this.label12.Click += new System.EventHandler(this.label12_Click);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Segoe UI Semilight", 15.8F);
+            this.label13.Location = new System.Drawing.Point(30, 721);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(78, 37);
+            this.label13.TabIndex = 54;
+            this.label13.Text = "Total:";
+            this.label13.Click += new System.EventHandler(this.label13_Click);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Segoe UI Semilight", 10.8F);
+            this.label14.Location = new System.Drawing.Point(105, 673);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(73, 25);
+            this.label14.TabIndex = 57;
+            this.label14.Text = "10,000 $";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Segoe UI Semilight", 10.8F);
+            this.label15.Location = new System.Drawing.Point(31, 673);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(47, 25);
+            this.label15.TabIndex = 56;
+            this.label15.Text = "Sale:";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Segoe UI Semilight", 10.8F);
+            this.label16.Location = new System.Drawing.Point(562, 707);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(26, 25);
+            this.label16.TabIndex = 58;
+            this.label16.Text = "%";
+            // 
             // UC_Sell
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
+            this.Controls.Add(this.label16);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.comboBoxShoes);
             this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.label7);
@@ -332,6 +449,7 @@
             this.Click += new System.EventHandler(this.UC_Sell_Click);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -359,5 +477,14 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Quantity;
         private System.Windows.Forms.DataGridViewTextBoxColumn UnitPrice;
         private System.Windows.Forms.DataGridViewTextBoxColumn Discount;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label16;
     }
 }

@@ -19,6 +19,7 @@ namespace Calzado_Ulacit.GUI.User_Controls
         public Form_SelectClient()
         {
             InitializeComponent();
+            StartPosition = FormStartPosition.CenterScreen;// Posiciona la ventana en el centro de la pantalla
         }
 
         private void Form_SelectClient_Load(object sender, EventArgs e)

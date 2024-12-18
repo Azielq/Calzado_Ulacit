@@ -162,6 +162,35 @@ namespace Calzado_Ulacit.Persistencia
             return dt; // Devuelve el DataTable con los datos de la tabla Shoe
         }
 
+        // Método para obtener el nombre del zapato por ID
+        public string GetShoeNameById(int shoeId)
+        {
+            string shoeName = "Desconocido";
+            try
+            {
+                con.Open();
+                string query = "SELECT shoeName FROM Shoe WHERE shoeId = @ShoeId";
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@ShoeId", shoeId);
+                    object result = cmd.ExecuteScalar();
+                    if (result != null)
+                    {
+                        shoeName = result.ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al obtener el nombre del zapato: " + ex.Message);
+            }
+            finally
+            {
+                con.Close();
+            }
+            return shoeName;
+        }
+
     }
 
 
