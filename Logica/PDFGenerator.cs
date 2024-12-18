@@ -1,4 +1,4 @@
-﻿using Calzado_Ulacit.Persistencia;
+﻿using Calzado_Ulacit.Logica;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System;
@@ -9,14 +9,7 @@ namespace Calzado_Ulacit.Utilidades
 {
     public class PDFGenerator
     {
-        private readonly ShoeDataAccess shoeDataAccess;
-
-        public PDFGenerator()
-        {
-            shoeDataAccess = new ShoeDataAccess();
-        }
-
-        public void GenerateInvoicePDF(InvoiceDataAccess.Invoice invoice, List<InvoiceDataAccess.InvoiceItem> items, string clientName, decimal subtotal, decimal tax, decimal total, string filePath)
+        public void GenerateInvoicePDF(Invoice invoice, List<InvoiceItem> items, string clientName, decimal subtotal, decimal tax, decimal total, string filePath)
         {
             // Crear el documento PDF
             Document document = new Document(PageSize.A4);
@@ -27,7 +20,7 @@ namespace Calzado_Ulacit.Utilidades
 
                 // Título
                 var titleFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 18);
-                Paragraph title = new Paragraph("Factura de Venta", titleFont)
+                Paragraph title = new Paragraph("Factura de Venta - Ulacit Shoes", titleFont)
                 {
                     Alignment = Element.ALIGN_CENTER,
                     SpacingAfter = 20
@@ -46,8 +39,12 @@ namespace Calzado_Ulacit.Utilidades
                 infoTable.AddCell(new Phrase(clientName, infoFont));
                 infoTable.AddCell(new Phrase("Fecha de Factura:", infoFont));
                 infoTable.AddCell(new Phrase(invoice.InvoiceDate.ToString("dd/MM/yyyy"), infoFont));
-                infoTable.AddCell(new Phrase("Descuento (%):", infoFont));
+                infoTable.AddCell(new Phrase("Descuento Factura (%):", infoFont));
                 infoTable.AddCell(new Phrase((invoice.Discount * 100).ToString("F2"), infoFont));
+
+                // **Añadir Método de Pago**
+                infoTable.AddCell(new Phrase("Método de Pago:", infoFont));
+                infoTable.AddCell(new Phrase(invoice.PaymentMethod, infoFont));
 
                 document.Add(infoTable);
                 document.Add(new Paragraph("\n"));
@@ -70,7 +67,7 @@ namespace Calzado_Ulacit.Utilidades
                 foreach (var item in items)
                 {
                     table.AddCell(new Phrase(item.ShoeId.ToString(), infoFont));
-                    table.AddCell(new Phrase(GetShoeNameById(item.ShoeId), infoFont)); // Usar el método actualizado
+                    table.AddCell(new Phrase(item.ShoeName, infoFont)); // Usar ShoeName directamente
                     table.AddCell(new Phrase(item.Quantity.ToString(), infoFont));
                     table.AddCell(new Phrase(item.UnitPrice.ToString("C2"), infoFont));
                     table.AddCell(new Phrase(item.Discount.ToString("C2"), infoFont));
@@ -94,6 +91,13 @@ namespace Calzado_Ulacit.Utilidades
                 totalTable.AddCell(new Phrase("Total:", infoFont));
                 totalTable.AddCell(new Phrase(total.ToString("C2"), infoFont));
 
+                // **Añadir Método de Pago en Totales (Opcional)**
+                // Si deseas mostrar el método de pago también en la sección de totales, descomenta las siguientes líneas:
+                /*
+                totalTable.AddCell(new Phrase("Método de Pago:", infoFont));
+                totalTable.AddCell(new Phrase(invoice.PaymentMethod, infoFont));
+                */
+
                 document.Add(totalTable);
             }
             catch (Exception ex)
@@ -105,12 +109,6 @@ namespace Calzado_Ulacit.Utilidades
             {
                 document.Close();
             }
-        }
-
-        // Método actualizado para obtener el nombre del zapato por ID
-        private string GetShoeNameById(int shoeId)
-        {
-            return shoeDataAccess.GetShoeNameById(shoeId);
         }
     }
 }

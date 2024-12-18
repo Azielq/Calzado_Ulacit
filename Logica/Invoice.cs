@@ -6,25 +6,28 @@ using System.Threading.Tasks;
 
 namespace Calzado_Ulacit.Logica
 {
-    internal class Invoice
+    public class Invoice
     {
-        
-
-        //Atributos
         public int InvoiceId { get; set; }
-        public int ClientId { get; set; }
+        public int cltId { get; set; }
         public DateTime InvoiceDate { get; set; }
         public decimal Discount { get; set; }
         public decimal TotalAmount { get; set; }
+        public string PaymentMethod { get; set; } // Nueva propiedad
 
-
-        public Invoice(int invoiceId, int clientId, DateTime invoiceDate, decimal discount, decimal totalAmount)
+        // Constructor por defecto
+        public Invoice()
         {
-            InvoiceId = invoiceId;
-            ClientId = clientId;
+        }
+
+        // Constructor opcional con parámetros
+        public Invoice(int clientId, DateTime invoiceDate, decimal discount, decimal totalAmount, string paymentMethod)
+        {
+            cltId = clientId;
             InvoiceDate = invoiceDate;
             Discount = discount;
             TotalAmount = totalAmount;
+            PaymentMethod = paymentMethod; // Asignación de la nueva propiedad
         }
     }
 }

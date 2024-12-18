@@ -1,13 +1,48 @@
-﻿using System;
+﻿using Calzado_Ulacit.Logica;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
 namespace Calzado_Ulacit.Persistencia
 {
-    internal class InvoiceDataAccess
+    public class InvoiceDataAccess
     {
+        // Conexión a la base de datos
         private readonly SqlConnection con = new SqlConnection("server=AZIEL; database=UlacitShoes; integrated security=true");
+
+        // Método para agregar una factura y sus ítems
+        public bool ClientExists(int clientId)
+        {
+            bool exists = false;
+            string query = "SELECT COUNT(1) FROM Clients WHERE cltId = @cltId";
+
+            using (SqlCommand cmd = new SqlCommand(query, con))
+            {
+                cmd.Parameters.AddWithValue("@cltId", clientId);
+                con.Open();
+                int count = (int)cmd.ExecuteScalar();
+                exists = count > 0;
+                con.Close();
+            }
+
+            return exists;
+        }
+
+        // Método para obtener todos los clientes (si es necesario)
+        public DataTable GetAllClients()
+        {
+            DataTable dt = new DataTable();
+            string query = "SELECT cltId, ClientName FROM Clients"; // Ajusta los nombres de las columnas según tu base de datos
+
+            using (SqlCommand cmd = new SqlCommand(query, con))
+            {
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                adapter.Fill(dt);
+            }
+
+            return dt;
+        }
 
         // Método para agregar una factura y sus ítems
         public void AddInvoice(Invoice invoice, List<InvoiceItem> items)
@@ -18,17 +53,25 @@ namespace Calzado_Ulacit.Persistencia
                 using (SqlTransaction transaction = con.BeginTransaction())
                 {
                     // Insertar la factura
-                    string insertInvoiceQuery = "INSERT INTO Invoice (cltId, invoiceDate, discount, totalAmount) VALUES (@cltId, @invoiceDate, @discount, @totalAmount); SELECT SCOPE_IDENTITY();";
+                    string insertInvoiceQuery = "INSERT INTO Invoice (cltId, invoiceDate, discount, totalAmount, PaymentMethod) VALUES (@cltId, @invoiceDate, @discount, @totalAmount, @paymentMethod); SELECT SCOPE_IDENTITY();";
                     using (SqlCommand cmd = new SqlCommand(insertInvoiceQuery, con, transaction))
                     {
-                        cmd.Parameters.AddWithValue("@cltId", invoice.ClientId);
+                        cmd.Parameters.AddWithValue("@cltId", invoice.cltId);
                         cmd.Parameters.AddWithValue("@invoiceDate", invoice.InvoiceDate);
                         cmd.Parameters.AddWithValue("@discount", invoice.Discount);
                         cmd.Parameters.AddWithValue("@totalAmount", invoice.TotalAmount);
+                        cmd.Parameters.AddWithValue("@paymentMethod", invoice.PaymentMethod); // Parámetro nuevo
 
                         // Obtener el ID de la factura recién insertada
-                        int invoiceId = Convert.ToInt32(cmd.ExecuteScalar());
-                        invoice.InvoiceId = invoiceId;
+                        object result = cmd.ExecuteScalar();
+                        if (result != null)
+                        {
+                            invoice.InvoiceId = Convert.ToInt32(result);
+                        }
+                        else
+                        {
+                            throw new Exception("No se pudo obtener el ID de la factura.");
+                        }
                     }
 
                     // Insertar cada ítem de la factura
@@ -58,8 +101,11 @@ namespace Calzado_Ulacit.Persistencia
             }
             finally
             {
-                con.Close();
+                if (con.State == ConnectionState.Open)
+                    con.Close();
             }
         }
+
+
     }
 }

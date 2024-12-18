@@ -6,27 +6,30 @@ using System.Threading.Tasks;
 
 namespace Calzado_Ulacit.Logica
 {
-    internal class InvoiceItem
+    public class InvoiceItem
     {
-        
-
         public int InvoiceItemId { get; set; }
         public int InvoiceId { get; set; }
         public int ShoeId { get; set; }
+        public string ShoeName { get; set; } 
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
         public decimal Discount { get; set; }
 
-
-        public InvoiceItem(int invoiceItemId, int invoiceId, int shoeId, int quantity, decimal unitPrice, decimal discount)
+        // Constructor por defecto
+        public InvoiceItem()
         {
-            InvoiceItemId = invoiceItemId;
+        }
+
+        // Constructor opcional con parámetros (actualizado para incluir ShoeName)
+        public InvoiceItem(int invoiceId, int shoeId, string shoeName, int quantity, decimal unitPrice, decimal discount)
+        {
             InvoiceId = invoiceId;
             ShoeId = shoeId;
+            ShoeName = shoeName;
             Quantity = quantity;
             UnitPrice = unitPrice;
             Discount = discount;
         }
-
     }
 }

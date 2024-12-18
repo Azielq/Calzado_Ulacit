@@ -1,10 +1,13 @@
-﻿using Calzado_Ulacit.Persistencia;
+﻿using Calzado_Ulacit.Logica;
+using Calzado_Ulacit.Persistencia;
+using Calzado_Ulacit.Utilidades;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,13 +23,13 @@ namespace Calzado_Ulacit.GUI.User_Controls
         private decimal tax;
         private string paymentMethod;
         private int invDiscount;
-        private string client;
-        private int clientId;
+        private int cltId;
 
 
         public UC_Sell()
         {
             InitializeComponent();
+            button1.Enabled = false; // Deshabilitar inicialmente
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
@@ -95,6 +98,8 @@ namespace Calzado_Ulacit.GUI.User_Controls
             label14.Text = discountedSubtotal.ToString("C2", CultureInfo.GetCultureInfo("en-US")); // Subtotal después del descuento
             label11.Text = tax.ToString("C2", CultureInfo.GetCultureInfo("en-US"));               // Impuesto 13%
             label12.Text = total.ToString("C2", CultureInfo.GetCultureInfo("en-US"));
+
+
         }
 
 
@@ -109,8 +114,12 @@ namespace Calzado_Ulacit.GUI.User_Controls
                 // Asignar el cliente seleccionado al label10
                 label10.Text = selectClientForm.SelectedClient;
 
-                // Asignar el ID del cliente seleccionado al label7
+                // Asignar el ID del cliente seleccionado al label7 y a la variable clientId
                 label7.Text = selectClientForm.SelectedClientID.ToString();
+                cltId = selectClientForm.SelectedClientID; // Asignar a la variable de clase
+
+                // Habilitar el botón de generación de factura
+                button1.Enabled = true;
             }
         }
 
@@ -179,26 +188,7 @@ namespace Calzado_Ulacit.GUI.User_Controls
 
         private void comboBoxShoes_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //if (comboBoxShoes.SelectedValue != null && comboBoxShoes.SelectedValue is int)
-            //{
-            //    int selectedShoeId = (int)comboBoxShoes.SelectedValue;
-            //    string selectedShoeName = comboBoxShoes.Text;
-
-            //    // Se podría obtener el precio del DataTable original o hacer una consulta adicional:
-            //    ShoeDataAccess shoeData = new ShoeDataAccess();
-            //    DataTable dt = shoeData.GetAllShoes(); // esto no es muy eficiente cada vez; se recomienda guardar en memoria
-            //    DataRow[] rows = dt.Select("shoeId = " + selectedShoeId);
-            //    float price = 0;
-            //    if (rows.Length > 0)
-            //    {
-            //        price = Convert.ToSingle(rows[0]["price"]);
-            //    }
-
-            //    // Agregar fila al DataGridView
-            //    // Asumiendo columnas: ShoeID, ShoeName, Quantity, UnitPrice, Discount
-            //    dataGridView2.Rows.Add(selectedShoeId, selectedShoeName, 1, price, 0);
-            //    dataGridView2.ClearSelection();
-            //}
+           
         }
 
         private void comboBoxShoes_KeyDown(object sender, KeyEventArgs e)
@@ -429,5 +419,148 @@ namespace Calzado_Ulacit.GUI.User_Controls
             // Limpiar el mensaje de error después de editar
             dataGridView2.Rows[e.RowIndex].ErrorText = string.Empty;
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // **1. Verificar que se haya seleccionado un cliente**
+                if (cltId <= 0)
+                {
+                    MessageBox.Show("Por favor, selecciona un cliente antes de generar la factura.", "Cliente No Seleccionado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // **2. Validar que haya al menos un ítem en la factura**
+                if (dataGridView2.Rows.Count == 0 || (dataGridView2.Rows.Count == 1 && dataGridView2.Rows[0].IsNewRow))
+                {
+                    MessageBox.Show("No hay ítems en la factura.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // **3. Verificar si el cliente existe en la base de datos**
+                InvoiceDataAccess invoiceDataAccess = new InvoiceDataAccess();
+                ShoeDataAccess shoeDataAccess = new ShoeDataAccess();
+
+                if (!invoiceDataAccess.ClientExists(cltId))
+                {
+                    MessageBox.Show("El cliente seleccionado no existe en la base de datos.", "Error de Cliente", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // **4. Obtener el método de pago seleccionado**
+                string selectedPaymentMethod = GetSelectedPaymentMethod();
+                if (string.IsNullOrEmpty(selectedPaymentMethod))
+                {
+                    MessageBox.Show("Por favor, selecciona un método de pago.", "Método de Pago No Seleccionado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // **5. Crear instancia de Invoice**
+                Invoice invoice = new Invoice
+                {
+                    cltId = cltId, // Asegúrate de que cltId esté asignado correctamente y coincide con la base de datos
+                    InvoiceDate = DateTime.Now,
+                    Discount = numericUpDown1.Value / 100m, // Convertir porcentaje a decimal
+                    TotalAmount = total,
+                    PaymentMethod = selectedPaymentMethod // Asignar el método de pago
+                };
+
+                // **6. Crear lista de ítems**
+                List<InvoiceItem> items = new List<InvoiceItem>();
+
+                foreach (DataGridViewRow row in dataGridView2.Rows)
+                {
+                    if (row.IsNewRow) continue;
+
+                    int shoeId = Convert.ToInt32(row.Cells["ShoeID"].Value); // Usa el nombre correcto de la columna
+                    int quantity = Convert.ToInt32(row.Cells["Quantity"].Value);
+                    decimal unitPrice = Convert.ToDecimal(row.Cells["UnitPrice"].Value);
+                    decimal discount = Convert.ToDecimal(row.Cells["Discount"].Value);
+
+                    // Obtener el nombre del zapato
+                    string shoeName = shoeDataAccess.GetShoeNameById(shoeId);
+
+                    InvoiceItem item = new InvoiceItem
+                    {
+                        ShoeId = shoeId,
+                        ShoeName = shoeName, // Asignar el nombre del zapato
+                        Quantity = quantity,
+                        UnitPrice = unitPrice,
+                        Discount = discount
+                    };
+                    items.Add(item);
+                }
+
+                // **7. Guardar la factura en la base de datos**
+                invoiceDataAccess.AddInvoice(invoice, items);
+
+                // **8. Generar el PDF**
+                PDFGenerator pdfGenerator = new PDFGenerator();
+                string clientName = label10.Text;
+                string pdfDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Facturas");
+                if (!Directory.Exists(pdfDirectory))
+                {
+                    Directory.CreateDirectory(pdfDirectory);
+                }
+                string pdfPath = Path.Combine(pdfDirectory, $"Factura_{invoice.InvoiceId}.pdf");
+
+                pdfGenerator.GenerateInvoicePDF(invoice, items, clientName, subtotal, tax, total, pdfPath);
+
+                // **9. Mostrar MessageBox de éxito**
+                MessageBox.Show($"Factura generada exitosamente.\nPDF guardado en: {pdfPath}", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // **10. Abrir el PDF automáticamente**
+                try
+                {
+                    var psi = new System.Diagnostics.ProcessStartInfo
+                    {
+                        FileName = pdfPath,
+                        UseShellExecute = true
+                    };
+                    System.Diagnostics.Process.Start(psi);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Factura generada, pero no se pudo abrir el PDF automáticamente.\nPDF guardado en: {pdfPath}\nError: {ex.Message}", "Información", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
+                // **11. Opcional: Limpiar el formulario después de la facturación**
+                ClearForm();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ocurrió un error al generar la factura: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // Método para limpiar el formulario después de la facturación
+        private void ClearForm()
+        {
+            dataGridView2.Rows.Clear();
+            label10.Text = string.Empty;
+            label7.Text = string.Empty;
+            numericUpDown1.Value = 0;
+            UpdateTotals();
+
+            // Deshabilitar el botón de generación de factura hasta que se seleccione un nuevo cliente
+            button1.Enabled = false;
+            cltId = 0; // Reiniciar clientId
+
+            // Restablecer la selección de método de pago
+            radioButton1.Checked = true; // Seleccionar el primer método por defecto
+        }
+
+        private string GetSelectedPaymentMethod()
+        {
+            if (radioButton1.Checked)
+                return "Efectivo";
+            if (radioButton2.Checked)
+                return "Tarjeta de Crédito";
+
+            return string.Empty;
+        }
+
+
     }
 }
