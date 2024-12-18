@@ -6,10 +6,11 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Calzado_Ulacit.Persistencia
 {
-    internal class ShoeDataAccess
+   public class ShoeDataAccess
     {
         // Conexión a la base de datos
         private SqlConnection con = new SqlConnection("server=AZIEL; database=UlacitShoes; integrated security=true");
@@ -19,10 +20,9 @@ namespace Calzado_Ulacit.Persistencia
         {
             try
             {
-                con.Open();// Abre la conexión a la base de datos
-                string query = "INSERT INTO Shoe (shoeName, shoeColor, shoeSize, type, price) VALUES (@Name, @Color, @ShoeSize, @Type, @Price)";
+                con.Open();
+                string query = "INSERT INTO Shoe (shoeName, shoeColor, shoeSize, type, price, Stock) VALUES (@Name, @Color, @ShoeSize, @Type, @Price, @Stock)";
 
-                // Usa un SqlCommand para ejecutar la consulta con parámetros
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
                     cmd.Parameters.AddWithValue("@Name", shoe.ShoeName);
@@ -30,17 +30,18 @@ namespace Calzado_Ulacit.Persistencia
                     cmd.Parameters.AddWithValue("@ShoeSize", shoe.ShoeSize);
                     cmd.Parameters.AddWithValue("@Type", shoe.Type);
                     cmd.Parameters.AddWithValue("@Price", shoe.Price);
+                    cmd.Parameters.AddWithValue("@Stock", shoe.Stock);
 
-                    cmd.ExecuteNonQuery(); // Ejecuta la consulta
+                    cmd.ExecuteNonQuery();
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error al insertar zapato: " + ex.Message); // Muestra mensaje de error en caso de excepción
+                MessageBox.Show("Error al agregar el zapato: " + ex.Message);
             }
             finally
             {
-                con.Close(); // Cierra la conexión
+                con.Close();
             }
         }
 
@@ -73,14 +74,15 @@ namespace Calzado_Ulacit.Persistencia
             try
             {
                 con.Open(); // Abre la conexión a la base de datos
-                string query = "UPDATE Shoe SET shoeName = @Name, shoeColor = @Color, shoeSize = @ShoeSize, type = @Type, price = @Price WHERE shoeId = @ID";
+                string query = "UPDATE Shoe SET shoeName = @Name, shoeColor = @Color, shoeSize = @shoeSize, type = @Type, price = @Price, Stock = @Stock WHERE shoeId = @ID";
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
                     cmd.Parameters.AddWithValue("@Name", shoe.ShoeName);
                     cmd.Parameters.AddWithValue("@Color", shoe.ShoeColor);
-                    cmd.Parameters.AddWithValue("@ShoeSize", shoe.ShoeSize); // Agregar parámetro para shoeSize
+                    cmd.Parameters.AddWithValue("@shoeSize", shoe.ShoeSize); // Agregar parámetro para shoeSize
                     cmd.Parameters.AddWithValue("@Type", shoe.Type);
                     cmd.Parameters.AddWithValue("@Price", shoe.Price);
+                    cmd.Parameters.AddWithValue("@Stock", shoe.Stock);
                     cmd.Parameters.AddWithValue("@ID", shoeId);
 
                     cmd.ExecuteNonQuery(); // Ejecuta la consulta de actualización
@@ -136,7 +138,7 @@ namespace Calzado_Ulacit.Persistencia
             try
             {
                 con.Open(); // Abre la conexión a la base de datos
-                string query = "SELECT shoeId, shoeName, price FROM Shoe"; // Define la consulta de selección
+                string query = "SELECT shoeId, shoeName, price, Stock FROM Shoe"; // Define la consulta de selección
                 SqlDataAdapter adaptador = new SqlDataAdapter(query, con); // Usa un adaptador para llenar el DataTable
                 adaptador.Fill(dt);
 
@@ -191,6 +193,64 @@ namespace Calzado_Ulacit.Persistencia
             }
             return shoeName;
         }
+
+        public int GetStockById(int shoeId)
+        {
+            int stock = 0;
+            try
+            {
+                con.Open();
+                string query = "SELECT Stock FROM Shoe WHERE shoeId = @ShoeId";
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@ShoeId", shoeId);
+                    object result = cmd.ExecuteScalar();
+                    if (result != null)
+                    {
+                        stock = Convert.ToInt32(result);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al obtener el stock del zapato: " + ex.Message);
+            }
+            finally
+            {
+                con.Close();
+            }
+            return stock;
+        }
+
+        public void ReduceShoeStock(int shoeId, int quantitySold)
+        {
+            try
+            {
+                con.Open();
+                string query = "UPDATE Shoe SET Stock = Stock - @QuantitySold WHERE shoeId = @ShoeId AND Stock >= @QuantitySold";
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@QuantitySold", quantitySold);
+                    cmd.Parameters.AddWithValue("@ShoeId", shoeId);
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    if (rowsAffected == 0)
+                    {
+                        throw new Exception("No hay suficiente stock para este zapato o el zapato no existe.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al reducir el stock del zapato: " + ex.Message);
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+
 
     }
 

@@ -6,30 +6,23 @@ using System.Threading.Tasks;
 
 namespace Calzado_Ulacit.Logica
 {
-    internal class Shoe
+    public class Shoe
     {
-        //Atributos de Zapatos
-        private string shoeName;
-        private string shoeColor;
-        private int shoeSize;
-        private string type;
-        private float price;
+        public string ShoeName { get; set; }
+        public string ShoeColor { get; set; }
+        public int ShoeSize { get; set; }
+        public string Type { get; set; }
+        public float Price { get; set; }
+        public int Stock { get; set; }
 
-        //Constructor de un zapato con sus parámetros
-        public Shoe(string shoeName, string shoeColor, int shoeSize, string type, float price)
+        public Shoe(string shoeName, string shoeColor, int shoeSize, string type, float price, int stock)
         {
-            this.shoeName = shoeName;
-            this.shoeColor = shoeColor;
-            this.shoeSize = shoeSize;
-            this.type = type;
-            this.price = price;
+            ShoeName = shoeName;
+            ShoeColor = shoeColor;
+            ShoeSize = shoeSize;
+            Type = type;
+            Price = price;
+            Stock = stock;
         }
-
-        //Getters y Setters
-        public string ShoeName { get => shoeName; set => shoeName = value; }
-        public string ShoeColor { get => shoeColor; set => shoeColor = value; }
-        public int ShoeSize { get => shoeSize; set => shoeSize = value; }
-        public string Type { get => type; set => type = value; }
-        public float Price { get => price; set => price = value; }
     }
 }

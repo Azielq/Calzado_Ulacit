@@ -313,6 +313,13 @@ namespace Calzado_Ulacit.GUI.User_Controls
             int shoeId = Convert.ToInt32(shoeRow["shoeId"]);
             string name = shoeRow["shoeName"].ToString();
             float price = Convert.ToSingle(shoeRow["price"]);
+            int stock = Convert.ToInt32(shoeRow["Stock"]);
+
+            if (stock <= 0)
+            {
+                MessageBox.Show($"No hay stock disponible para el zapato {name}.", "Stock Insuficiente", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             // Agregar al DataGridView una fila con la información del zapato
             dataGridView2.Rows.Add(shoeId, name, 1, price, 0);
@@ -449,6 +456,29 @@ namespace Calzado_Ulacit.GUI.User_Controls
                     return;
                 }
 
+                // Validar stock antes de proceder
+                foreach (DataGridViewRow row in dataGridView2.Rows)
+                {
+                    if (row.IsNewRow) continue;
+
+                    int shoeId = Convert.ToInt32(row.Cells["ShoeID"].Value); // ID del zapato
+                    int quantity = Convert.ToInt32(row.Cells["Quantity"].Value); // Cantidad solicitada
+
+                    // Obtener el stock actual del zapato desde la base de datos
+                    ShoeDataAccess shoeDataAcces = new ShoeDataAccess();
+                    int currentStock = shoeDataAcces.GetStockById(shoeId);
+
+                    // Verificar si hay suficiente stock
+                    if (currentStock < quantity)
+                    {
+                        MessageBox.Show($"No hay suficiente stock para el zapato con ID {shoeId}. Stock disponible: {currentStock}.",
+                                        "Stock Insuficiente",
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Warning);
+                        return;
+                    }
+                }
+
                 // **3. Verificar si el cliente existe en la base de datos**
                 InvoiceDataAccess invoiceDataAccess = new InvoiceDataAccess();
                 ShoeDataAccess shoeDataAccess = new ShoeDataAccess();
@@ -505,6 +535,12 @@ namespace Calzado_Ulacit.GUI.User_Controls
 
                 // **7. Guardar la factura en la base de datos**
                 invoiceDataAccess.AddInvoice(invoice, items);
+
+                // Actualizar el stock de cada zapato
+                foreach (var item in items)
+                {
+                    shoeDataAccess.ReduceShoeStock(item.ShoeId, item.Quantity);
+                }
 
                 // **8. Generar el PDF**
                 PDFGenerator pdfGenerator = new PDFGenerator();
@@ -565,9 +601,9 @@ namespace Calzado_Ulacit.GUI.User_Controls
         private string GetSelectedPaymentMethod()
         {
             if (radioButton1.Checked)
-                return "Efectivo";
+                return "Cash";
             if (radioButton2.Checked)
-                return "Tarjeta de Crédito";
+                return "Credit Card";
 
             return string.Empty;
         }

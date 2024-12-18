@@ -27,13 +27,26 @@ namespace Calzado_Ulacit.GUI.User_Controls
 
         }
 
+        private void ValidateDataTable(DataTable dt)
+        {
+            foreach (DataRow row in dt.Rows)
+            {
+                // Validar que shoeSize sea un entero válido
+                if (!int.TryParse(row["shoeSize"]?.ToString(), out int shoeSize))
+                {
+                    row["shoeSize"] = 0; // Asignar valor predeterminado si no es válido
+                }
+            }
+        }   
+
         private void LoadDataGrid()
         {
-            // Crea una instancia para acceder a datos y asigna el DataTable al DataGridView
             ShoeDataAccess dataAccess = new ShoeDataAccess();
             dataGridView1.DataSource = dataAccess.fillDataGrid();
 
-            // Desactiva la selección de la fila inicial
+            // Asegurar que el tipo de dato de shoeSize sea correcto
+            dataGridView1.Columns["shoeSize"].ValueType = typeof(int);
+
             dataGridView1.ClearSelection();
             dataGridView1.CurrentCell = null;
 
@@ -294,9 +307,11 @@ namespace Calzado_Ulacit.GUI.User_Controls
                 string.IsNullOrWhiteSpace(textBox1.Text) ||
                 string.IsNullOrWhiteSpace(textBox4.Text) ||
                 string.IsNullOrWhiteSpace(textBox3.Text) ||
+                string.IsNullOrWhiteSpace(textBox5.Text) ||
                 textBox3.Text.Equals("Enter shoe price here") ||
                 textBox2.Text.Equals("Enter shoe name here") ||
                 textBox1.Text.Equals("Enter shoe color here") ||
+                textBox1.Text.Equals("Enter stock here") ||
                 textBox4.Text.Equals("Enter shoe type here"))
             {
                 MessageBox.Show("Todos los campos deben estar llenos.");
@@ -311,17 +326,29 @@ namespace Calzado_Ulacit.GUI.User_Controls
             }
 
             // Verifica que la talla sea un número entero
-            int shoeSize;
-            if (!int.TryParse(comboBox1.Text, out shoeSize))
+            if (!int.TryParse(comboBox1.Text.Trim(), out int shoeSize) || shoeSize <= 0)
             {
-                MessageBox.Show("La talla del zapato debe ser un número entero.");
+                MessageBox.Show("Por favor, seleccione una talla válida (número entero positivo).");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(textBox5.Text) || textBox5.Text.Equals("Enter stock here"))
+            {
+                MessageBox.Show("Por favor, ingrese un stock válido.");
+                return;
+            }
+
+            int shoeStock;
+            if (!int.TryParse(textBox5.Text, out shoeStock) || shoeStock < 0)
+            {
+                MessageBox.Show("El stock debe ser un número entero positivo.");
                 return;
             }
 
             // Convierte el precio de string a float y agrega el zapato a la base de datos
             if (float.TryParse(textBox3.Text, out shoePrice))
             {
-                Shoe shoe = new Shoe(shoeName, shoeColor, shoeSize, shoeType, shoePrice);
+                Shoe shoe = new Shoe(shoeName, shoeColor, shoeSize, shoeType, shoePrice, shoeStock);
 
                 ShoeDataAccess dataAccess = new ShoeDataAccess();
                 dataAccess.AddShoe(shoe);
@@ -418,10 +445,12 @@ namespace Calzado_Ulacit.GUI.User_Controls
                 string.IsNullOrWhiteSpace(textBox1.Text) ||
                 string.IsNullOrWhiteSpace(textBox4.Text) ||
                 string.IsNullOrWhiteSpace(textBox3.Text) ||
+                string.IsNullOrWhiteSpace(textBox5.Text) ||
                 textBox3.Text.Equals("Enter shoe price here") ||
                 textBox2.Text.Equals("Enter shoe name here") ||
                 textBox1.Text.Equals("Enter shoe color here") ||
                 textBox4.Text.Equals("Enter shoe type here") ||
+                textBox5.Text.Equals("Enter stock here") ||
                 string.IsNullOrWhiteSpace(comboBox1.Text) ||
                 comboBox1.Text.Equals("Select shoe size"))
             {
@@ -436,10 +465,21 @@ namespace Calzado_Ulacit.GUI.User_Controls
                 return;
             }
 
+
+
             // Validar que la talla sea un número entero válido
-            if (!int.TryParse(comboBox1.Text, out int shoeSize))
+            if (!int.TryParse(comboBox1.Text.Trim(), out int shoeSize) || shoeSize <= 0)
             {
-                MessageBox.Show("La talla debe ser un número entero.");
+                MessageBox.Show("Por favor, seleccione una talla válida (número entero positivo).");
+                return;
+            }
+
+
+            // Validar el stock
+            int shoeStock;
+            if (!int.TryParse(textBox5.Text, out shoeStock) || shoeStock < 0)
+            {
+                MessageBox.Show("El stock debe ser un número entero positivo.");
                 return;
             }
 
@@ -454,7 +494,8 @@ namespace Calzado_Ulacit.GUI.User_Controls
                     textBox1.Text.Trim(),
                     shoeSize,  // Tamaño del zapato validado
                     textBox4.Text.Trim(),
-                    shoePrice
+                    shoePrice,
+                    shoeStock
                 );
 
                 // Instancia de ShoeDataAccess para actualizar el zapato en la base de datos
@@ -468,6 +509,7 @@ namespace Calzado_Ulacit.GUI.User_Controls
                 selectedRow.Cells["shoeSize"].Value = shoeSize.ToString(); // Convertir a texto antes de asignar
                 selectedRow.Cells["typeDataGridViewTextBoxColumn"].Value = updatedShoe.Type;
                 selectedRow.Cells["priceDataGridViewTextBoxColumn"].Value = updatedShoe.Price;
+                selectedRow.Cells["Stock"].Value = updatedShoe.Stock;
 
                 MessageBox.Show("Zapato actualizado correctamente.");
             }
@@ -481,6 +523,7 @@ namespace Calzado_Ulacit.GUI.User_Controls
             textBox2.Text = "";
             textBox3.Text = "";
             textBox4.Text = "";
+            textBox5.Text = "";
             comboBox1.SelectedIndex = -1;
 
             dataGridView1.ClearSelection();
@@ -506,6 +549,9 @@ namespace Calzado_Ulacit.GUI.User_Controls
                 // Validar los datos de las celdas antes de asignarlos
                 textBox2.Text = row.Cells["shoeNameDataGridViewTextBoxColumn"].Value?.ToString() ?? "";
                 textBox1.Text = row.Cells["shoeColorDataGridViewTextBoxColumn"].Value?.ToString() ?? "";
+                // Asignar valores existentes a los campos de texto
+                textBox5.Text = row.Cells["Stock"].Value?.ToString() ?? "Enter stock here";
+                textBox5.ForeColor = Color.Black;
 
                 // Validar si el tamaño es un número válido antes de asignarlo al ComboBox
                 if (int.TryParse(row.Cells["shoeSize"].Value?.ToString(), out int shoeSize))
@@ -588,19 +634,73 @@ namespace Calzado_Ulacit.GUI.User_Controls
 
             // Evitar que la aplicación se detenga por el error
             e.ThrowException = false;
+
+            string problematicValue = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value?.ToString() ?? "null";
+            Console.WriteLine($"Valor problemático: {problematicValue}");
+
+            MessageBox.Show($"Error al procesar los datos: {e.Exception.Message}\n" +
+                            $"Valor problemático: {problematicValue}",
+                            "Error en DataGridView",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+
+            e.ThrowException = false;
         }
 
         private void dataGridView1_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
-            // Validar la columna de shoeSize (suponiendo que está en el índice 3)
             if (dataGridView1.Columns[e.ColumnIndex].Name == "shoeSize")
             {
-                if (!int.TryParse(e.FormattedValue.ToString(), out _))
+                // Validar que el valor sea un entero positivo
+                if (!int.TryParse(e.FormattedValue.ToString(), out int size) || size <= 0)
                 {
-                    MessageBox.Show("La talla debe ser un número entero válido.", "Error de validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    e.Cancel = true; // Cancelar la edición si el valor no es válido
+                    MessageBox.Show("El tamaño del zapato debe ser un número entero mayor que 0.", "Error de validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    e.Cancel = true; // Cancela la edición si el valor no es válido
                 }
             }
+        }
+
+        private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+            textBox5.ForeColor = Color.Black;
+        }
+
+        private void textBox5_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (textBox5.Text.Equals("Enter stock here"))
+            {
+                textBox5.Text = "";
+                textBox5.ForeColor = Color.Black;
+            }
+
+            if (textBox1.Text.Equals(""))
+            {
+                textBox1.Text = "Enter shoe color here";
+                textBox1.ForeColor = Color.FromArgb(224, 224, 224);
+            }
+
+            if (textBox2.Text.Equals(""))
+            {
+                textBox2.Text = "Enter shoe name here";
+                textBox2.ForeColor = Color.FromArgb(224, 224, 224);
+            }
+
+            if (textBox3.Text.Equals(""))
+            {
+                textBox3.Text = "Enter shoe price here";
+                textBox3.ForeColor = Color.FromArgb(224, 224, 224);
+            }
+
+            if (textBox4.Text.Equals(""))
+            {
+                textBox4.Text = "Enter shoe type here";
+                textBox4.ForeColor = Color.FromArgb(224, 224, 224);
+            }
+        }
+
+        private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+
         }
     }
 }

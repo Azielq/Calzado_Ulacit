@@ -33,11 +33,11 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
@@ -54,12 +54,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.shoeIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.shoeNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.shoeColorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.shoeSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.typeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.priceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.shoeBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.ulacitShoesDataSet2 = new Calzado_Ulacit.UlacitShoesDataSet2();
             this.label6 = new System.Windows.Forms.Label();
@@ -72,6 +66,18 @@
             this.label9 = new System.Windows.Forms.Label();
             this.shoeTableAdapter1 = new Calzado_Ulacit.UlacitShoesDataSet2TableAdapters.ShoeTableAdapter();
             this.label10 = new System.Windows.Forms.Label();
+            this.ulacitShoesDataSet3 = new Calzado_Ulacit.UlacitShoesDataSet3();
+            this.shoeBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
+            this.shoeTableAdapter2 = new Calzado_Ulacit.UlacitShoesDataSet3TableAdapters.ShoeTableAdapter();
+            this.shoeIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.shoeNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.shoeColorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.shoeSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.typeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.priceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Stock = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.shoeBindingSource1)).BeginInit();
@@ -79,6 +85,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ulacitShoesDataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.shoeBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ulacitShoesDataSet3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.shoeBindingSource2)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -108,7 +116,7 @@
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button4.Font = new System.Drawing.Font("Segoe UI Semilight", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button4.ForeColor = System.Drawing.Color.White;
-            this.button4.Location = new System.Drawing.Point(847, 535);
+            this.button4.Location = new System.Drawing.Point(864, 619);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(88, 30);
             this.button4.TabIndex = 28;
@@ -123,7 +131,7 @@
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button3.Font = new System.Drawing.Font("Segoe UI Semilight", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button3.ForeColor = System.Drawing.Color.White;
-            this.button3.Location = new System.Drawing.Point(951, 535);
+            this.button3.Location = new System.Drawing.Point(968, 619);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(88, 30);
             this.button3.TabIndex = 27;
@@ -139,7 +147,7 @@
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Segoe UI Semilight", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(881, 573);
+            this.button1.Location = new System.Drawing.Point(898, 657);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(158, 59);
             this.button1.TabIndex = 26;
@@ -153,9 +161,9 @@
             this.textBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox4.Font = new System.Drawing.Font("Segoe UI Semilight", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.textBox4.Location = new System.Drawing.Point(736, 409);
+            this.textBox4.Location = new System.Drawing.Point(806, 409);
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(303, 31);
+            this.textBox4.Size = new System.Drawing.Size(249, 31);
             this.textBox4.TabIndex = 25;
             this.textBox4.Text = "Enter shoe type here";
             this.textBox4.MouseClick += new System.Windows.Forms.MouseEventHandler(this.textBox4_MouseClick_1);
@@ -165,7 +173,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI Semilight", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(729, 371);
+            this.label5.Location = new System.Drawing.Point(800, 376);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(61, 31);
             this.label5.TabIndex = 24;
@@ -178,9 +186,9 @@
             this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox3.Font = new System.Drawing.Font("Segoe UI Semilight", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.textBox3.Location = new System.Drawing.Point(736, 495);
+            this.textBox3.Location = new System.Drawing.Point(806, 495);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(303, 31);
+            this.textBox3.Size = new System.Drawing.Size(249, 31);
             this.textBox3.TabIndex = 23;
             this.textBox3.Text = "Enter shoe price here";
             this.textBox3.MouseClick += new System.Windows.Forms.MouseEventHandler(this.textBox3_MouseClick);
@@ -190,7 +198,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI Semilight", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(729, 457);
+            this.label4.Location = new System.Drawing.Point(800, 462);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(62, 31);
             this.label4.TabIndex = 22;
@@ -202,9 +210,9 @@
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox1.Font = new System.Drawing.Font("Segoe UI Semilight", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.textBox1.Location = new System.Drawing.Point(736, 242);
+            this.textBox1.Location = new System.Drawing.Point(806, 242);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(303, 31);
+            this.textBox1.Size = new System.Drawing.Size(249, 31);
             this.textBox1.TabIndex = 21;
             this.textBox1.Text = "Enter shoe color here";
             this.textBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.textBox1_MouseClick_1);
@@ -214,7 +222,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI Semilight", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(729, 208);
+            this.label3.Location = new System.Drawing.Point(800, 209);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(67, 31);
             this.label3.TabIndex = 20;
@@ -227,9 +235,9 @@
             this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox2.Font = new System.Drawing.Font("Segoe UI Semilight", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.textBox2.Location = new System.Drawing.Point(736, 159);
+            this.textBox2.Location = new System.Drawing.Point(806, 159);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(303, 31);
+            this.textBox2.Size = new System.Drawing.Size(249, 31);
             this.textBox2.TabIndex = 19;
             this.textBox2.Text = "Enter shoe name here";
             this.textBox2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.textBox2_MouseClick_1);
@@ -239,7 +247,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI Semilight", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(729, 121);
+            this.label2.Location = new System.Drawing.Point(800, 126);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(74, 31);
             this.label2.TabIndex = 18;
@@ -265,7 +273,7 @@
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Font = new System.Drawing.Font("Segoe UI Semilight", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(571, 495);
+            this.button2.Location = new System.Drawing.Point(652, 495);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(104, 40);
             this.button2.TabIndex = 30;
@@ -306,8 +314,9 @@
             this.shoeColorDataGridViewTextBoxColumn,
             this.shoeSize,
             this.typeDataGridViewTextBoxColumn,
-            this.priceDataGridViewTextBoxColumn});
-            this.dataGridView1.DataSource = this.shoeBindingSource1;
+            this.priceDataGridViewTextBoxColumn,
+            this.Stock});
+            this.dataGridView1.DataSource = this.shoeBindingSource2;
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(234)))), ((int)(((byte)(255)))));
             dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI Semilight", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -324,71 +333,13 @@
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(627, 347);
+            this.dataGridView1.Size = new System.Drawing.Size(708, 347);
             this.dataGridView1.TabIndex = 29;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
+            this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
             this.dataGridView1.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dataGridView1_CellValidating);
             this.dataGridView1.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridView1_DataError);
-            // 
-            // shoeIdDataGridViewTextBoxColumn
-            // 
-            this.shoeIdDataGridViewTextBoxColumn.DataPropertyName = "shoeId";
-            dataGridViewCellStyle3.NullValue = "0";
-            this.shoeIdDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle3;
-            this.shoeIdDataGridViewTextBoxColumn.HeaderText = "ID";
-            this.shoeIdDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this.shoeIdDataGridViewTextBoxColumn.Name = "shoeIdDataGridViewTextBoxColumn";
-            this.shoeIdDataGridViewTextBoxColumn.ReadOnly = true;
-            this.shoeIdDataGridViewTextBoxColumn.Width = 45;
-            // 
-            // shoeNameDataGridViewTextBoxColumn
-            // 
-            this.shoeNameDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.shoeNameDataGridViewTextBoxColumn.DataPropertyName = "shoeName";
-            this.shoeNameDataGridViewTextBoxColumn.HeaderText = "Shoe Name";
-            this.shoeNameDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this.shoeNameDataGridViewTextBoxColumn.Name = "shoeNameDataGridViewTextBoxColumn";
-            this.shoeNameDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // shoeColorDataGridViewTextBoxColumn
-            // 
-            this.shoeColorDataGridViewTextBoxColumn.DataPropertyName = "shoeColor";
-            this.shoeColorDataGridViewTextBoxColumn.HeaderText = "Shoe Color";
-            this.shoeColorDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this.shoeColorDataGridViewTextBoxColumn.Name = "shoeColorDataGridViewTextBoxColumn";
-            this.shoeColorDataGridViewTextBoxColumn.ReadOnly = true;
-            this.shoeColorDataGridViewTextBoxColumn.Width = 55;
-            // 
-            // shoeSize
-            // 
-            this.shoeSize.DataPropertyName = "shoeSize";
-            this.shoeSize.HeaderText = "Shoe Size";
-            this.shoeSize.MinimumWidth = 6;
-            this.shoeSize.Name = "shoeSize";
-            this.shoeSize.ReadOnly = true;
-            this.shoeSize.Width = 45;
-            // 
-            // typeDataGridViewTextBoxColumn
-            // 
-            this.typeDataGridViewTextBoxColumn.DataPropertyName = "type";
-            this.typeDataGridViewTextBoxColumn.HeaderText = "Type";
-            this.typeDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this.typeDataGridViewTextBoxColumn.Name = "typeDataGridViewTextBoxColumn";
-            this.typeDataGridViewTextBoxColumn.ReadOnly = true;
-            this.typeDataGridViewTextBoxColumn.Width = 80;
-            // 
-            // priceDataGridViewTextBoxColumn
-            // 
-            this.priceDataGridViewTextBoxColumn.DataPropertyName = "price";
-            dataGridViewCellStyle4.Format = "C2";
-            dataGridViewCellStyle4.NullValue = "0";
-            this.priceDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle4;
-            this.priceDataGridViewTextBoxColumn.HeaderText = "Price";
-            this.priceDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this.priceDataGridViewTextBoxColumn.Name = "priceDataGridViewTextBoxColumn";
-            this.priceDataGridViewTextBoxColumn.ReadOnly = true;
-            this.priceDataGridViewTextBoxColumn.Width = 60;
             // 
             // shoeBindingSource1
             // 
@@ -499,9 +450,9 @@
             "43",
             "44",
             "45"});
-            this.comboBox1.Location = new System.Drawing.Point(735, 325);
+            this.comboBox1.Location = new System.Drawing.Point(805, 325);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(304, 33);
+            this.comboBox1.Size = new System.Drawing.Size(250, 33);
             this.comboBox1.TabIndex = 35;
             this.comboBox1.Text = "Select shoe size";
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
@@ -512,7 +463,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Segoe UI Semilight", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(729, 291);
+            this.label9.Location = new System.Drawing.Point(800, 292);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(54, 31);
             this.label9.TabIndex = 36;
@@ -533,11 +484,119 @@
             this.label10.TabIndex = 37;
             this.label10.Text = "Subtotals";
             // 
+            // ulacitShoesDataSet3
+            // 
+            this.ulacitShoesDataSet3.DataSetName = "UlacitShoesDataSet3";
+            this.ulacitShoesDataSet3.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // shoeBindingSource2
+            // 
+            this.shoeBindingSource2.DataMember = "Shoe";
+            this.shoeBindingSource2.DataSource = this.ulacitShoesDataSet3;
+            // 
+            // shoeTableAdapter2
+            // 
+            this.shoeTableAdapter2.ClearBeforeFill = true;
+            // 
+            // shoeIdDataGridViewTextBoxColumn
+            // 
+            this.shoeIdDataGridViewTextBoxColumn.DataPropertyName = "shoeId";
+            dataGridViewCellStyle3.NullValue = "0";
+            this.shoeIdDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle3;
+            this.shoeIdDataGridViewTextBoxColumn.HeaderText = "ID";
+            this.shoeIdDataGridViewTextBoxColumn.MinimumWidth = 6;
+            this.shoeIdDataGridViewTextBoxColumn.Name = "shoeIdDataGridViewTextBoxColumn";
+            this.shoeIdDataGridViewTextBoxColumn.ReadOnly = true;
+            this.shoeIdDataGridViewTextBoxColumn.Width = 45;
+            // 
+            // shoeNameDataGridViewTextBoxColumn
+            // 
+            this.shoeNameDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.shoeNameDataGridViewTextBoxColumn.DataPropertyName = "shoeName";
+            this.shoeNameDataGridViewTextBoxColumn.HeaderText = "Shoe Name";
+            this.shoeNameDataGridViewTextBoxColumn.MinimumWidth = 6;
+            this.shoeNameDataGridViewTextBoxColumn.Name = "shoeNameDataGridViewTextBoxColumn";
+            this.shoeNameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // shoeColorDataGridViewTextBoxColumn
+            // 
+            this.shoeColorDataGridViewTextBoxColumn.DataPropertyName = "shoeColor";
+            this.shoeColorDataGridViewTextBoxColumn.HeaderText = "Shoe Color";
+            this.shoeColorDataGridViewTextBoxColumn.MinimumWidth = 6;
+            this.shoeColorDataGridViewTextBoxColumn.Name = "shoeColorDataGridViewTextBoxColumn";
+            this.shoeColorDataGridViewTextBoxColumn.ReadOnly = true;
+            this.shoeColorDataGridViewTextBoxColumn.Width = 55;
+            // 
+            // shoeSize
+            // 
+            this.shoeSize.DataPropertyName = "shoeSize";
+            this.shoeSize.HeaderText = "Shoe Size";
+            this.shoeSize.MinimumWidth = 6;
+            this.shoeSize.Name = "shoeSize";
+            this.shoeSize.ReadOnly = true;
+            this.shoeSize.Width = 45;
+            // 
+            // typeDataGridViewTextBoxColumn
+            // 
+            this.typeDataGridViewTextBoxColumn.DataPropertyName = "type";
+            this.typeDataGridViewTextBoxColumn.HeaderText = "Type";
+            this.typeDataGridViewTextBoxColumn.MinimumWidth = 6;
+            this.typeDataGridViewTextBoxColumn.Name = "typeDataGridViewTextBoxColumn";
+            this.typeDataGridViewTextBoxColumn.ReadOnly = true;
+            this.typeDataGridViewTextBoxColumn.Width = 80;
+            // 
+            // priceDataGridViewTextBoxColumn
+            // 
+            this.priceDataGridViewTextBoxColumn.DataPropertyName = "price";
+            dataGridViewCellStyle4.Format = "C2";
+            dataGridViewCellStyle4.NullValue = "0";
+            this.priceDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle4;
+            this.priceDataGridViewTextBoxColumn.HeaderText = "Price";
+            this.priceDataGridViewTextBoxColumn.MinimumWidth = 6;
+            this.priceDataGridViewTextBoxColumn.Name = "priceDataGridViewTextBoxColumn";
+            this.priceDataGridViewTextBoxColumn.ReadOnly = true;
+            this.priceDataGridViewTextBoxColumn.Width = 60;
+            // 
+            // Stock
+            // 
+            this.Stock.DataPropertyName = "Stock";
+            this.Stock.HeaderText = "Stock";
+            this.Stock.MinimumWidth = 6;
+            this.Stock.Name = "Stock";
+            this.Stock.ReadOnly = true;
+            this.Stock.Width = 60;
+            // 
+            // textBox5
+            // 
+            this.textBox5.BackColor = System.Drawing.Color.White;
+            this.textBox5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox5.Font = new System.Drawing.Font("Segoe UI Semilight", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.textBox5.Location = new System.Drawing.Point(806, 577);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(249, 31);
+            this.textBox5.TabIndex = 39;
+            this.textBox5.Text = "Enter stock here";
+            this.textBox5.MouseClick += new System.Windows.Forms.MouseEventHandler(this.textBox5_MouseClick);
+            this.textBox5.TextChanged += new System.EventHandler(this.textBox5_TextChanged);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Segoe UI Semilight", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(800, 544);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(66, 31);
+            this.label11.TabIndex = 38;
+            this.label11.Text = "Stock";
+            // 
             // UC_Stock
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
+            this.Controls.Add(this.textBox5);
+            this.Controls.Add(this.label11);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.comboBox1);
@@ -571,6 +630,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ulacitShoesDataSet1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.shoeBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ulacitShoesDataSet3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.shoeBindingSource2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -605,12 +666,18 @@
         private System.Windows.Forms.BindingSource shoeBindingSource1;
         private UlacitShoesDataSet2 ulacitShoesDataSet2;
         private UlacitShoesDataSet2TableAdapters.ShoeTableAdapter shoeTableAdapter1;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.BindingSource shoeBindingSource2;
+        private UlacitShoesDataSet3 ulacitShoesDataSet3;
+        private UlacitShoesDataSet3TableAdapters.ShoeTableAdapter shoeTableAdapter2;
         private System.Windows.Forms.DataGridViewTextBoxColumn shoeIdDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn shoeNameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn shoeColorDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn shoeSize;
         private System.Windows.Forms.DataGridViewTextBoxColumn typeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn priceDataGridViewTextBoxColumn;
-        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Stock;
+        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.Label label11;
     }
 }
