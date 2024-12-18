@@ -73,11 +73,12 @@ namespace Calzado_Ulacit.Persistencia
             try
             {
                 con.Open(); // Abre la conexión a la base de datos
-                string query = "UPDATE Shoe SET shoeName = @Name, shoeColor = @Color, type = @Type, price = @Price WHERE shoeId = @ID";
+                string query = "UPDATE Shoe SET shoeName = @Name, shoeColor = @Color, shoeSize = @ShoeSize, type = @Type, price = @Price WHERE shoeId = @ID";
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
                     cmd.Parameters.AddWithValue("@Name", shoe.ShoeName);
                     cmd.Parameters.AddWithValue("@Color", shoe.ShoeColor);
+                    cmd.Parameters.AddWithValue("@ShoeSize", shoe.ShoeSize); // Agregar parámetro para shoeSize
                     cmd.Parameters.AddWithValue("@Type", shoe.Type);
                     cmd.Parameters.AddWithValue("@Price", shoe.Price);
                     cmd.Parameters.AddWithValue("@ID", shoeId);

@@ -56,6 +56,17 @@ namespace Calzado_Ulacit.GUI.User_Controls
         {
             LoadShoesIntoComboBox();
             UpdateTotals();
+
+            // Configurar el formato de moneda en la columna Unit Price
+            if (dataGridView2.Columns["UnitPrice"] != null)
+            {
+                var usdStyle = new DataGridViewCellStyle
+                {
+                    Format = "C2", // Formato de moneda con 2 decimales
+                    FormatProvider = CultureInfo.GetCultureInfo("en-US") // Cultura para dólar estadounidense
+                };
+                dataGridView2.Columns["UnitPrice"].DefaultCellStyle = usdStyle;
+            }
         }
 
 

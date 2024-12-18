@@ -106,6 +106,53 @@ namespace Calzado_Ulacit.Persistencia
             }
         }
 
+        public DataTable GetSalesByDateRange(DateTime startDate, DateTime endDate)
+        {
+            DataTable dt = new DataTable();
+
+            string query = @"
+        SELECT 
+            i.invoiceId,
+            i.cltId,
+            c.CltName,
+            i.invoiceDate,
+            i.discount,
+            i.totalAmount,
+            i.PaymentMethod
+        FROM 
+            Invoice i
+        JOIN 
+            Clients c ON i.cltId = c.cltId
+        WHERE 
+            i.invoiceDate BETWEEN @StartDate AND @EndDate
+        ORDER BY 
+            i.invoiceDate";
+
+            try
+            {
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@StartDate", startDate);
+                    cmd.Parameters.AddWithValue("@EndDate", endDate);
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    adapter.Fill(dt);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al obtener ventas por rango de fechas: " + ex.Message);
+            }
+            finally
+            {
+                if (con.State == ConnectionState.Open)
+                    con.Close();
+            }
+
+            return dt;
+        }
+
 
     }
 }
