@@ -101,7 +101,6 @@ namespace Calzado_Ulacit
 
         private void textBox4_TextChanged(object sender, EventArgs e)
         {
-            //Address
             textBox4.ForeColor = Color.Black;
         }
 
@@ -371,11 +370,6 @@ namespace Calzado_Ulacit
                 textBox4.Text = row.Cells["cltAddressDataGridViewTextBoxColumn"].Value?.ToString() ?? "";
                 textBox3.Text = row.Cells["cltPhoneNumDataGridViewTextBoxColumn"].Value?.ToString() ?? "";
             }
-        }
-
-        private void label7_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

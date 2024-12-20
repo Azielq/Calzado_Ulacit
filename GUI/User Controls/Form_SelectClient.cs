@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 namespace Calzado_Ulacit.GUI.User_Controls
 {
+    //form para seleccionar un cliente, este form se llama desde UC_Sell
     public partial class Form_SelectClient : Form
     {
 
@@ -20,42 +21,34 @@ namespace Calzado_Ulacit.GUI.User_Controls
         {
             InitializeComponent();
             StartPosition = FormStartPosition.CenterScreen;// Posiciona la ventana en el centro de la pantalla
+            
+
         }
 
         private void Form_SelectClient_Load(object sender, EventArgs e)
         {
             //esta línea de código carga datos en la tabla 'ulacitShoesDataSet.Clients'
             this.clientsTableAdapter.Fill(this.ulacitShoesDataSet.Clients);
-
+            dataGridView1.ClearSelection();
         }
 
-        private void btnSelect_Click(object sender, EventArgs e)
-        {
-            // Verificar si hay una fila seleccionada
-            if (dataGridView1.CurrentRow != null)
-            {
-                SelectedClient = dataGridView1.CurrentRow.Cells["Nombre"].Value.ToString();
-                this.DialogResult = DialogResult.OK; // Cierra el formulario con OK
-            }
-            else
-            {
-                MessageBox.Show("Por favor, selecciona un cliente.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-        }
 
+        // Evento para seleccionar cliente
         private void button1_Click(object sender, EventArgs e)
         {
             // Verificar si hay una fila seleccionada
-            if (dataGridView1.CurrentRow != null)
+            if (dataGridView1.SelectedRows.Count > 0)
             {
+                // Obtener la fila seleccionada
+                DataGridViewRow selectedRow = dataGridView1.SelectedRows[0];
+
                 // Combinar nombre y apellido
-                string nombre = dataGridView1.CurrentRow.Cells["cltNameDataGridViewTextBoxColumn"].Value.ToString().Trim();
-                string apellido = dataGridView1.CurrentRow.Cells["cltLastNameDataGridViewTextBoxColumn"].Value.ToString().Trim();
+                string nombre = selectedRow.Cells["cltNameDataGridViewTextBoxColumn"].Value.ToString().Trim();
+                string apellido = selectedRow.Cells["cltLastNameDataGridViewTextBoxColumn"].Value.ToString().Trim();
                 SelectedClient = $"{nombre} {apellido}";
 
                 // Obtener el ID del cliente seleccionado
-                SelectedClientID = Convert.ToInt32(dataGridView1.CurrentRow.Cells["cltIDDataGridViewTextBoxColumn"].Value);
-
+                SelectedClientID = Convert.ToInt32(selectedRow.Cells["cltIDDataGridViewTextBoxColumn"].Value);
 
                 // Confirmar y cerrar el formulario
                 this.DialogResult = DialogResult.OK;

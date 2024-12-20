@@ -21,8 +21,6 @@ namespace Calzado_Ulacit.GUI.User_Controls
         private decimal total;
         private decimal subtotal;
         private decimal tax;
-        private string paymentMethod;
-        private int invDiscount;
         private int cltId;
 
 
@@ -30,26 +28,6 @@ namespace Calzado_Ulacit.GUI.User_Controls
         {
             InitializeComponent();
             button1.Enabled = false; // Deshabilitar inicialmente
-        }
-
-        private void radioButton2_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label10_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void UC_Sell_Load(object sender, EventArgs e)
@@ -134,21 +112,6 @@ namespace Calzado_Ulacit.GUI.User_Controls
             }
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
         private void LoadShoesIntoComboBox()
         {
             ShoeDataAccess shoeData = new ShoeDataAccess();
@@ -197,11 +160,7 @@ namespace Calzado_Ulacit.GUI.User_Controls
             comboBoxShoes.KeyDown += comboBoxShoes_KeyDown;
         }
 
-        private void comboBoxShoes_SelectedIndexChanged(object sender, EventArgs e)
-        {
-           
-        }
-
+        //Evento para añadir al datagrid un zapato al presionar la tecla enter
         private void comboBoxShoes_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -308,8 +267,10 @@ namespace Calzado_Ulacit.GUI.User_Controls
             }
         }
 
+        
         private void AddShoeToGrid(DataRow shoeRow)
         {
+            //Guardar los datos que van en el datagrid en variables
             int shoeId = Convert.ToInt32(shoeRow["shoeId"]);
             string name = shoeRow["shoeName"].ToString();
             float price = Convert.ToSingle(shoeRow["price"]);
@@ -331,11 +292,14 @@ namespace Calzado_Ulacit.GUI.User_Controls
             UpdateTotals();
         }
 
+        //Esto es para poder deseleccionar las filas del datagrid al clickar fuera
         private void UC_Sell_Click(object sender, EventArgs e)
         {
             dataGridView2.ClearSelection();
         }
 
+
+        //Metodo que configura el input numérico del descuento
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
             // Obtener el valor del descuento como decimal (ej. 15% = 0.15)
@@ -358,30 +322,6 @@ namespace Calzado_Ulacit.GUI.User_Controls
             UpdateTotals();
         }
 
-        private void label8_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label11_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label9_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label12_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label13_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void dataGridView2_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
@@ -438,6 +378,8 @@ namespace Calzado_Ulacit.GUI.User_Controls
             dataGridView2.Rows[e.RowIndex].ErrorText = string.Empty;
         }
 
+
+        //Button SELL
         private void button1_Click(object sender, EventArgs e)
         {
             try
@@ -598,6 +540,7 @@ namespace Calzado_Ulacit.GUI.User_Controls
             radioButton1.Checked = true; // Seleccionar el primer método por defecto
         }
 
+        
         private string GetSelectedPaymentMethod()
         {
             if (radioButton1.Checked)
@@ -608,6 +551,9 @@ namespace Calzado_Ulacit.GUI.User_Controls
             return string.Empty;
         }
 
+        private void comboBoxShoes_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
+        }
     }
 }

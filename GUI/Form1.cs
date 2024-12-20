@@ -124,5 +124,10 @@ namespace Calzado_Ulacit
         {
 
         }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

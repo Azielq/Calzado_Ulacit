@@ -250,6 +250,31 @@ namespace Calzado_Ulacit.Persistencia
             }
         }
 
+        public bool HasReferencesInInvoiceItems(int shoeId)
+        {
+            bool hasReferences = false;
+            try
+            {
+                con.Open(); // Abre la conexión a la base de datos
+                string query = "SELECT COUNT(*) FROM InvoiceItems WHERE shoeId = @ShoeId"; // Consulta para contar referencias
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@ShoeId", shoeId); // Define el parámetro shoeId
+                    int count = (int)cmd.ExecuteScalar(); // Ejecuta la consulta y obtiene el resultado
+                    hasReferences = count > 0; // Si el conteo es mayor a 0, existen referencias
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al verificar referencias en InvoiceItems: " + ex.Message); // Muestra mensaje de error en caso de excepción
+            }
+            finally
+            {
+                con.Close(); // Cierra la conexión
+            }
+            return hasReferences; // Devuelve true si hay referencias, false en caso contrario
+        }
+
 
 
     }

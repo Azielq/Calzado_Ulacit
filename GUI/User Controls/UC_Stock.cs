@@ -22,22 +22,6 @@ namespace Calzado_Ulacit.GUI.User_Controls
             CalculateAndDisplaySummary();  // Muestra resumen de datos
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ValidateDataTable(DataTable dt)
-        {
-            foreach (DataRow row in dt.Rows)
-            {
-                // Validar que shoeSize sea un entero válido
-                if (!int.TryParse(row["shoeSize"]?.ToString(), out int shoeSize))
-                {
-                    row["shoeSize"] = 0; // Asignar valor predeterminado si no es válido
-                }
-            }
-        }   
 
         private void LoadDataGrid()
         {
@@ -129,12 +113,6 @@ namespace Calzado_Ulacit.GUI.User_Controls
                 textBox4.Text = "Enter shoe type here";
                 textBox4.ForeColor = Color.FromArgb(224, 224, 224);
             }
-        }
-
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void textBox2_MouseClick_1(object sender, MouseEventArgs e)
@@ -293,6 +271,7 @@ namespace Calzado_Ulacit.GUI.User_Controls
             clear();
         }
 
+        //Button Add
         private void button1_Click(object sender, EventArgs e)
         {
             // Captura datos de entrada
@@ -368,16 +347,6 @@ namespace Calzado_Ulacit.GUI.User_Controls
             clear();
         }
 
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label9_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void comboBox1_Enter(object sender, EventArgs e)
         {
                 
@@ -410,6 +379,7 @@ namespace Calzado_Ulacit.GUI.User_Controls
             }
         }
 
+        //Botón Eliminar
         private void button2_Click(object sender, EventArgs e)
         {
             // Botón Eliminar: verifica que haya una fila seleccionada
@@ -421,6 +391,13 @@ namespace Calzado_Ulacit.GUI.User_Controls
 
                 // Crear instancia de ShoeDataAccess y eliminar zapato
                 ShoeDataAccess dataAccess = new ShoeDataAccess();
+
+                if (dataAccess.HasReferencesInInvoiceItems(shoeId))
+                {
+                    MessageBox.Show("No se puede eliminar este zapato porque está referenciado en facturas.");
+                    return;
+                }
+
                 dataAccess.DeleteShoeById(shoeId);
 
                 // Elimina la fila del DataGridView
@@ -438,6 +415,8 @@ namespace Calzado_Ulacit.GUI.User_Controls
 
         }
 
+
+        //Botón Actualizar
         private void button4_Click(object sender, EventArgs e)
         {
             // Validar que todos los campos estén llenos
@@ -535,11 +514,7 @@ namespace Calzado_Ulacit.GUI.User_Controls
 
         }
 
-        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
+        //Metodo para que al hacer doble click en una fila se seleccione en todos los textbox
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -573,6 +548,7 @@ namespace Calzado_Ulacit.GUI.User_Controls
         {
             dataGridView1.ClearSelection();
         }
+
 
         private void CalculateAndDisplaySummary()
         {

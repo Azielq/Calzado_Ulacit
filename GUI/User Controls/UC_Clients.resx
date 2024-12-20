@@ -121,7 +121,7 @@
   <data name="pictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wAAADsABataJCQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAACA3SURBVHhe7d0J
+        vwAADr8BOAVTJAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAACA3SURBVHhe7d0J
         1K5lXe/xzTzK5ASSqYgzW7NyyMg0J8gBScGsHEpPnVoqHTrK6ngyazVghYpmhmnH5OSEKQ5poZia4slE
         MxVN9EilgEMiIPNwzu8SyS382fvd736H57quz3etz1r1d7P3ez3Tfb/Pcz/3vWHAtouD4lHxzDghTon3
         xSfj3PhGfCv+HwBTa9uCtk1o24a2jWjbijdG23a0bcgjo21T2rZFC9aBcXScGGfERVHdyQCwXG3b8qF4
@@ -264,6 +264,9 @@
   </data>
   <metadata name="clientsBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>205, 17</value>
+  </metadata>
+  <metadata name="ulacitShoesDataSet.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
   </metadata>
   <metadata name="ulacitShoesDataSet.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>

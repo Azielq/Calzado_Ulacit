@@ -19,38 +19,21 @@ namespace Calzado_Ulacit.GUI.User_Controls
             InitializeComponent();
         }
 
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void UC_CashOut_Load(object sender, EventArgs e)
         {
             dateTimePicker1.Value = DateTime.Now.AddDays(-7); // Fecha inicial (una semana antes)
-            dateTimePicker2.Value = DateTime.Now; // Fecha final (hoy)
+            dateTimePicker2.Value = DateTime.Now.AddDays(1); // Fecha final (hoy)
 
             button4_Click(sender, e); // Cargar datos iniciales
         }
 
+
+        // Botón de buscar Facturas por fecha
         private void button4_Click(object sender, EventArgs e)
         {
             DateTime startDate = dateTimePicker1.Value.Date;
             DateTime endDate = dateTimePicker2.Value.Date;
+
 
             if (startDate > endDate)
             {
@@ -61,6 +44,7 @@ namespace Calzado_Ulacit.GUI.User_Controls
             InvoiceDataAccess dataAccess = new InvoiceDataAccess();
             DataTable salesData = dataAccess.GetSalesByDateRange(startDate, endDate);
 
+            //Si hay filas seleccionadas entonces...
             if (salesData.Rows.Count > 0)
             {
                 // Asignar los datos al DataGridView
@@ -72,6 +56,8 @@ namespace Calzado_Ulacit.GUI.User_Controls
                 dataGridView1.Columns["invoiceDate"].HeaderText = "Invoice Date";
                 dataGridView1.Columns["invoiceDate"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 dataGridView1.Columns["discount"].HeaderText = "Discount";
+
+
                 // Formatear la columna Invoice Total
                 var usdStyle = new DataGridViewCellStyle
                 {
